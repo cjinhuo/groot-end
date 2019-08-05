@@ -32,4 +32,8 @@
           if (!/^https?:\/\//.test(url)) { url = 'http://' + url; }
           return url;
       }
+      async getSwaggerJSON(url) {
+        url = this.resolveSwaggerUrl(url);
+
+      }
   }
