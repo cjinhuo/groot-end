@@ -5,7 +5,7 @@ import { GetSwaggerUrlDto } from './dto/parse.dto';
 export class ParseController {
   constructor(private readonly parseService: ParseService) {}
 
-  @Get('getSwagger')
+  @Get('list')
   async getTableList(@Query() url: GetSwaggerUrlDto ): Promise<any> {
     const data = {};
     const res = await this.parseService.createList(url.url);
