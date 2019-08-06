@@ -1,7 +1,7 @@
 import { Module, HttpModule } from '@nestjs/common';
 import { GetSwaggerController } from './getSwagger.controller';
 import { GetSwaggerService } from './getSwagger.service';
-import { BackFormatter } from 'src/Common/BackFormatter';
+import { BackFormatter } from '../Common/BackFormatter';
 @Module({
   imports: [HttpModule.register({
     timeout: 5000,

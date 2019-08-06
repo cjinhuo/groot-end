@@ -2,6 +2,7 @@ import { Module, HttpModule } from '@nestjs/common';
 import { ParseController } from './parse.controlle';
 import { ParseService } from './parse.service';
 import { BackFormatter } from '../Common/BackFormatter';
+import { GetSwaggerService } from '../getSwagger/getSwagger.service';
 @Module({
   imports: [HttpModule.register({
     timeout: 5000,
@@ -10,7 +11,7 @@ import { BackFormatter } from '../Common/BackFormatter';
     withCredentials: true,
   })],
   controllers: [ParseController],
-  providers: [ParseService, BackFormatter],
+  providers: [ParseService, GetSwaggerService, BackFormatter],
   exports: [ParseService],
 })
 export class ParseModule {}

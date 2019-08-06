@@ -1,15 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { BackFormatter } from '../Common/BackFormatter';
 import { GetSwaggerService } from './getSwagger.service';
+import { GetSwaggerDto } from './dto/GetSwaggerDto';
 
 @Controller('getSwagger')
 export class GetSwaggerController {
   constructor(private readonly getSwaggerService: GetSwaggerService) {}
-  @Get('url')
-  async getTableList(): Promise<object> {
-    let data = {};
-    const res = await this.getSwaggerService.createList('1', '2').toPromise();
-    data = res.data;
-    return data;
+
+  @Get()
+  async getSwaggerJSON(@Query() url: GetSwaggerDto) {
+    const res = await this.getSwaggerService.getSwaggerWithUrl(url.url);
+    return res;
   }
 }

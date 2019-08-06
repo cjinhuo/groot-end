@@ -1,22 +1,14 @@
-import { Controller, Get } from '@nestjs/common';
-import { BackFormatter } from '../Common/BackFormatter';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ParseService } from './parse.service';
+import { GetSwaggerUrlDto } from './dto/parse.dto';
 @Controller('parse')
 export class ParseController {
   constructor(private readonly parseService: ParseService) {}
 
-  @Get('list')
-  async getTableList(): Promise<object> {
-    let data = {};
-    const res = await this.parseService.createList('1', '2').toPromise();
-    data = res.data;
-    return data;
-  }
-
-  @Get('test')
-  getNumber(): object {
-    return {
-      one: 1,
-    };
+  @Get('getSwagger')
+  async getTableList(@Query() url: GetSwaggerUrlDto ): Promise<any> {
+    const data = {};
+    const res = await this.parseService.createList(url.url);
+    return res;
   }
 }
