@@ -5,6 +5,6 @@ export default interface ParseInterface {
    * 函数名上方的模板
    */
   createTemplateCodes: (template?: string) => string[];
-  filterTreeWithId: (ids: string[]) => object[];
+  filterTreeWithIds: (origin: object[], ids: string[]) => object[];
   createSingleInstance: (option: object) => string[];
 }

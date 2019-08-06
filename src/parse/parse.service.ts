@@ -19,18 +19,43 @@ export class ParseService implements ParseInterface {
     const data = await this.getSwaggerService.getSwaggerWithUrl(url);
     const tags = {};
     if (data.tags) {
+      // 添加第一层children，以tag来遍历
       data.tags.forEach(tag => {
-        root.children.push(tags[tag.name] = {
-          id: `tag ${tag.name}`,
-          label: tag.name,
-          description: tag.description,
-          children: [],
-        });
+        root.children.push(
+          (tags[tag.name] = {
+            id: `tag ${tag.name}`,
+            label: tag.name,
+            description: tag.description,
+            children: [],
+          }),
+        );
       });
+      // paths的结构
+      // const paths = [
+      //   {
+      //     '/ops/alert/add': {
+      //       'post': {
+      //         consumes: ['application/json'],
+      //         operationId: 'addAlertUsingPOST',
+      //         parameters: [],
+      //         produces: ['*/*'],
+      //         responses: {200: {description: 'OK'}},
+      //         summary: '新增告警',
+      //         tags: ['告警'],
+      //       },
+      //     },
+      //   },
+      // ];
+      // 根据
       for (const path in data.paths) {
-        if (!data.paths.hasOwnProperty(path)) { continue; }
+        if (!data.paths.hasOwnProperty(path)) {
+          continue;
+        }
         for (const method in data.paths[path]) {
-          if (!data.paths[path].hasOwnProperty(method)) { continue; }
+          // 判断是否有path
+          if (!data.paths[path].hasOwnProperty(method)) {
+            continue;
+          }
 
           const def = data.paths[path][method];
           const node = {
@@ -43,17 +68,22 @@ export class ParseService implements ParseInterface {
 
           if (def.tags && def.tags.length) {
             const tagName = def.tags[0];
+            // 上面有定义一个tags对象存入root，这里用tags[tagName].children的引用
+            // 直接拿引用来push，因为这时候的tags[tagName].children的引用和root里面的children是同一个引用
+            // 所以不需要进root[index].children.push()
             if (tags[tagName]) {
               tags[tagName].children.push(node);
-            } else if (tagName) {
-              (tags[tagName] = {
-                id: tagName,
-                name: tagName,
-                children: [],
-              }).children.push(node);
             } else {
               root.children.push(node);
             }
+            // else if (tagName) {
+            //   // 这段代码没有意思，没有插入到root里面
+            //   (tags[tagName] = {
+            //     id: tagName,
+            //     name: tagName,
+            //     children: [],
+            //   }).children.push(node);
+            // }
           } else {
             root.children.push(node);
           }
@@ -99,5 +129,16 @@ export class ParseService implements ParseInterface {
     //
     const codes = [];
     return [''];
+  }
+  /**
+   * 过滤出用户所选的数据出来
+   * @param origin 源数据：通过接口list获取后的数据
+   * @param ids 用户勾选的数据keys
+   */
+  filterTreeWithIds(origin: object[], ids: string[]): any[] {
+    const idsMap = new Set(ids);
+    const result = []
+    origin.forEach()
+    return [];
   }
 }
