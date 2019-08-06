@@ -2,8 +2,9 @@
 export default interface ParseInterface {
   createList: (url: string, prefix: string) => object;
   /**
-   * 函数名上方的代码
+   * 函数名上方的模板
    */
-  createCodes: (url: string, options: string) => string;
-  createInstance: () => string;
+  createTemplateCodes: (template?: string) => string[];
+  filterTreeWithId: (ids: string[]) => object[];
+  createSingleInstance: (option: object) => string[];
 }
