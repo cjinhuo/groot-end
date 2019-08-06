@@ -1,21 +1,21 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpService } from '@nestjs/common';
 import ParseInterface from './interfaces/parse.interface';
-import { BackFormatter } from '../Utils/BackFormatter';
+import { BackFormatter } from '../Common/BackFormatter';
+import { request } from 'express';
+import { Observable } from 'rxjs';
+import { AxiosResponse } from 'axios';
 
 @Injectable()
 export class ParseService implements ParseInterface {
-  createList(url: string, prefix: string): object {
+  constructor(private readonly httpService: HttpService) {}
+  createList(url: string, prefix: string): Observable<AxiosResponse> {
     const currentUrl = encodeURIComponent(url);
     const root = {
       id: 'root',
-      label: '全选',
+      label: 'å…¨é€‰',
       children: [],
     };
-
-    const backFormatter = new BackFormatter();
-    return backFormatter.getResult(true, '成功返回', [{
-      test: 1,
-    }]);
+    return this.httpService.get('http://test-simba-ops.startdtapi.com/v2/api-docs');
   }
   createCodes(): string {
     return '';

@@ -7,6 +7,8 @@ declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(__dirname, '', '../static'));
+  // 启用CORS
+  app.enableCors();
   await app.listen(3000);
   if (module.hot) {
     module.hot.accept();
