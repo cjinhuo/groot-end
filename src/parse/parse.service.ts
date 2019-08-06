@@ -138,7 +138,13 @@ export class ParseService implements ParseInterface {
   filterTreeWithIds(origin: object[], ids: string[]): any[] {
     const idsMap = new Set(ids);
     const result = []
-    origin.forEach()
-    return [];
+    origin.children.forEach(tagItems => {
+      tagItems.children.forEach(item => {
+        if (idsMap.has(item.id)){
+          result.push(item);
+          idsMap.delete(item.id);
+        }
+      })
+    })
   }
 }
