@@ -1,3 +1,4 @@
+import { Injectable } from "@nestjs/common";
 
     enum dataTypes {
     STRING= 'string',
@@ -16,24 +17,21 @@
     SYMBOL= 'symbol',
     BUFFER= 'buffer',
   }
-    class Utils {
-      /**
-       * 将test-demo => testDemo,test,demo => testDemo
-       * @param words 单词
-       */
-      camelCase(words: string): string {
-        return words.replace(/\W(\w)/g, ($0, $1) => {
-          return $1.toUpperCase();
-        });
-      }
-      resolveSwaggerUrl(url: string): string {
-          url = url.replace(/\/swagger-ui\.html.*$/, '')
-            .replace(/\/+$/, '');
-          if (!/^https?:\/\//.test(url)) { url = 'http://' + url; }
-          return url;
-      }
-      async getSwaggerJSON(url) {
-        url = this.resolveSwaggerUrl(url);
-
-      }
-  }
+  @Injectable()
+  export class Utils {
+    /**
+     * 将test-demo => testDemo,test,demo => testDemo
+     * @param words 单词
+     */
+    camelCase(words: string): string {
+      return words.replace(/\W(\w)/g, ($0, $1) => {
+        return $1.toUpperCase();
+      });
+    }
+    resolveSwaggerUrl(url: string): string {
+        url = url.replace(/\/swagger-ui\.html.*$/, '')
+          .replace(/\/+$/, '');
+        if (!/^https?:\/\//.test(url)) { url = 'http://' + url; }
+        return `${url}/v2/api-docs`;
+    }
+}

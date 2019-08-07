@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import ParseInterface from './interfaces/parse.interface';
 import { GetSwaggerService } from '../getSwagger/getSwagger.service';
 import { BuildCodeDto } from './dto/parse.dto';
+import { ItemStructure } from './dto/parse.dto';
 
 @Injectable()
 export class ParseService implements ParseInterface {
@@ -64,6 +65,10 @@ export class ParseService implements ParseInterface {
             method,
             path,
             description: def.summary,
+            responses: def.responses,
+            operationId: def.operationId,
+            // consumes: ["application/json"]
+            consumes: def.consumes,
           };
 
           if (def.tags && def.tags.length) {
@@ -123,7 +128,7 @@ export class ParseService implements ParseInterface {
    * @param option 过滤tree的条件
    */
   createSingleInstance({ formatter, include }: BuildCodeDto): string[] {
-    console.log(formatter, include);
+    // console.log(formatter, include);
 
     // 方法名 + 地址的后面两个 如果有 {} 去掉
     //
@@ -132,19 +137,24 @@ export class ParseService implements ParseInterface {
   }
   /**
    * 过滤出用户所选的数据出来
-   * @param origin 源数据：通过接口list获取后的数据
+   * @param url swagger地址：通过地址获取数据
    * @param ids 用户勾选的数据keys
    */
-  filterTreeWithIds(origin: object[], ids: string[]): any[] {
-    const idsMap = new Set(ids);
-    const result = []
-    origin.children.forEach(tagItems => {
+  filterTreeWithIds(origin: ItemStructure[], ids: string[]): object[] {
+    const idsMap = new Set(ids);
+    const result = [];
+    origin.forEach(tagItems => {
       tagItems.children.forEach(item => {
-        if (idsMap.has(item.id)){
+        // 利用Set，复杂度肯定小于O(n)
+        if (idsMap.has(item.id)) {
           result.push(item);
           idsMap.delete(item.id);
+          if (idsMap.size === 0) {
+            return result;
+          }
         }
-      })
-    })
+      });
+    });
+    return result;
   }
 }
