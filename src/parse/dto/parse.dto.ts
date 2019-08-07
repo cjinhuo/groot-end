@@ -2,10 +2,12 @@
  * 请求/parse/build前端发过来的结构体
  */
 export class BuildCodeDto {
-  readonly include: any[];
-  readonly formatter: string;
+  readonly include: string[];
   readonly url: string;
+  readonly formatter: string;
   readonly template: string;
+  readonly functionNameFormatter: string;
+  readonly functionBodyFormatter: string;
 }
 
 /**
@@ -15,17 +17,21 @@ export class ItemStructure {
   readonly id: string;
   readonly label: string;
   readonly description: string;
-  readonly children: ChildrenStructure[];
+  readonly children: ItemChildrenStructure[];
 }
 /**
  * 第二层children的结构体
  */
-export class ChildrenStructure {
+export class ItemChildrenStructure {
   readonly id: string;
   readonly label: string;
   readonly method: string;
   readonly path: string;
   readonly description: string;
-  readonly response: object;
-  readonly parameters: [];
+  readonly response: any;
+  readonly parameters: any[];
+}
+
+export class FormatterCondition {
+
 }

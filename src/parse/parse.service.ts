@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import ParseInterface from './interfaces/parse.interface';
 import { GetSwaggerService } from '../getSwagger/getSwagger.service';
-import { BuildCodeDto } from './dto/parse.dto';
-import { ItemStructure, ChildrenStructure } from './dto/parse.dto';
+import { ItemStructure, ItemChildrenStructure } from './dto/parse.dto';
 
 @Injectable()
 export class ParseService implements ParseInterface {
@@ -127,25 +126,32 @@ export class ParseService implements ParseInterface {
   }
   /**
    * 生层单个函数的代码
-   * @param option 过滤tree的条件
+   * @param formatter 用户传过来的formatter函数
+   * @param item 单个item的所有信息
    */
-  createSingleInstance({ formatter, include }: BuildCodeDto): string[] {
-    // console.log(formatter, include);
-    const codes = [];
+  createSingleInstance(functionNameFormatter: string, functionBodyFormatter: string, item: ItemChildrenStructure): string[] {
+    // console.log(formatter, item);
+    let codes = [];
     // 开始注释块
     codes.push(`/**`);
     // 接口描述
-    // codes.push(` * ${operation.description}`);
-    // 方法名 + 地址的后面两个 如果有 {} 去掉
-    //
-    return [''];
+    codes.push(` * ${item.description}`);
+    // 结束注释块
+    codes.push(` */`);
+
+    // 函数头
+    codes = codes.concat(this.createFunctionName(functionNameFormatter, item));
+    // 函数体
+    codes = codes.concat(this.createFunctionBody(functionBodyFormatter, item));
+    // 完成
+    return codes;
   }
   /**
    * 过滤出用户所选的数据出来
    * @param url swagger地址：通过地址获取数据
    * @param ids 用户勾选的数据keys
    */
-  filterTreeWithIds(origin: ItemStructure[], ids: string[]): ChildrenStructure[] {
+  filterTreeWithIds(origin: ItemStructure[], ids: string[]): ItemChildrenStructure[] {
     const idsMap = new Set(ids);
     const result = [];
     origin.forEach(tagItems => {
@@ -162,4 +168,40 @@ export class ParseService implements ParseInterface {
     });
     return result;
   }
+  createFunctionName(functionNameFormatter: string, item: ItemChildrenStructure): string[] {
+    const fiterName = (checkName: string): boolean => {
+      return checkName === 'projectId' || checkName === 'projectName';
+    };
+    const params = []; // 请求参数
+    const name = `${item.method}`; //
+
+    item.parameters.forEach(parameter => {
+      switch (parameter.in) {
+        case 'query':
+          if (!fiterName(parameter.name)) {
+            params.push('params');
+          }
+          break;
+        case 'path':
+          if (!fiterName(parameter.name)) {
+            params.push(`${parameter.name}`);
+          }
+          break;
+        case 'header':
+          break;
+        case 'body':
+          if (!fiterName(parameter.name)) {
+            params.push('params');
+          }
+          break;
+      }
+    });
+
+    return [''];
+  }
+  createFunctionBody(funtionBodyFormater: string, item: ItemChildrenStructure): string[] {
+    const path = item.path.replace(/({[^}]+})/g, '$$$1');
+    return [''];
+  }
+
 }
