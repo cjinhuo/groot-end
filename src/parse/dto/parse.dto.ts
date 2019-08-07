@@ -1,8 +1,6 @@
-export class GetSwaggerUrlDto {
-  readonly url: string;
-}
-
-// tslint:disable-next-line: max-classes-per-file
+/**
+ * 请求/parse/build前端发过来的结构体
+ */
 export class BuildCodeDto {
   readonly include: any[];
   readonly formatter: string;
@@ -10,20 +8,24 @@ export class BuildCodeDto {
   readonly template: string;
 }
 
-// tslint:disable-next-line: max-classes-per-file
+/**
+ * 第一层children的结构体
+ */
 export class ItemStructure {
   readonly id: string;
   readonly label: string;
   readonly description: string;
   readonly children: ChildrenStructure[];
 }
-
-// tslint:disable-next-line: max-classes-per-file
-class ChildrenStructure {
+/**
+ * 第二层children的结构体
+ */
+export class ChildrenStructure {
   readonly id: string;
   readonly label: string;
   readonly method: string;
-   readonly path: string;
+  readonly path: string;
   readonly description: string;
   readonly response: object;
+  readonly parameters: [];
 }

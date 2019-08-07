@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
 
-    enum dataTypes {
+enum dataTypes {
     STRING= 'string',
     NUMBER= 'number',
     BOOLEAN= 'boolean',
@@ -17,7 +17,7 @@ import { Injectable } from "@nestjs/common";
     SYMBOL= 'symbol',
     BUFFER= 'buffer',
   }
-  @Injectable()
+@Injectable()
   export class Utils {
     /**
      * 将test-demo => testDemo,test,demo => testDemo

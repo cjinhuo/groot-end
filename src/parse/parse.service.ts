@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import ParseInterface from './interfaces/parse.interface';
 import { GetSwaggerService } from '../getSwagger/getSwagger.service';
 import { BuildCodeDto } from './dto/parse.dto';
-import { ItemStructure } from './dto/parse.dto';
+import { ItemStructure, ChildrenStructure } from './dto/parse.dto';
 
 @Injectable()
 export class ParseService implements ParseInterface {
@@ -69,6 +69,8 @@ export class ParseService implements ParseInterface {
             operationId: def.operationId,
             // consumes: ["application/json"]
             consumes: def.consumes,
+            // 对象会放在definitions
+            parameters: def.parameters,
           };
 
           if (def.tags && def.tags.length) {
@@ -129,10 +131,13 @@ export class ParseService implements ParseInterface {
    */
   createSingleInstance({ formatter, include }: BuildCodeDto): string[] {
     // console.log(formatter, include);
-
+    const codes = [];
+    // 开始注释块
+    codes.push(`/**`);
+    // 接口描述
+    // codes.push(` * ${operation.description}`);
     // 方法名 + 地址的后面两个 如果有 {} 去掉
     //
-    const codes = [];
     return [''];
   }
   /**
@@ -140,7 +145,7 @@ export class ParseService implements ParseInterface {
    * @param url swagger地址：通过地址获取数据
    * @param ids 用户勾选的数据keys
    */
-  filterTreeWithIds(origin: ItemStructure[], ids: string[]): object[] {
+  filterTreeWithIds(origin: ItemStructure[], ids: string[]): ChildrenStructure[] {
     const idsMap = new Set(ids);
     const result = [];
     origin.forEach(tagItems => {

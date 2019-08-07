@@ -1,4 +1,4 @@
-import { ItemStructure } from '../dto/parse.dto';
+import { ItemStructure, ChildrenStructure } from '../dto/parse.dto';
 
 export default interface ParseInterface {
   createList: (url: string, prefix: string) => object;
@@ -6,6 +6,6 @@ export default interface ParseInterface {
    * 函数名上方的模板
    */
   createTemplateCodes: (template?: string) => string[];
-  filterTreeWithIds: (origin: ItemStructure[], ids: string[]) => object[];
+  filterTreeWithIds: (origin: ItemStructure[], ids: string[]) => ChildrenStructure[];
   createSingleInstance: (option: object) => string[];
 }
