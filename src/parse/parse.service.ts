@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import ParseInterface from './interfaces/parse.interface';
-import { GetSwaggerService } from '../getSwagger/getSwagger.service';
 import { ItemStructure, ItemChildrenStructure } from './dto/parse.dto';
+import { Utils } from '../Common/utils';
+import { GetSwaggerService } from '../getSwagger/getSwagger.service';
 
 @Injectable()
 export class ParseService implements ParseInterface {
-  constructor(private readonly getSwaggerService: GetSwaggerService) {}
+  constructor(private readonly getSwaggerService: GetSwaggerService, private readonly utils: Utils) {}
   /**
    * 返回一个tree结构，用来展示swagger的每个接口层级
    * @param url 请求swagger的地址
@@ -116,8 +117,6 @@ export class ParseService implements ParseInterface {
       // 模块导入
       codes.push(`import request from '@/utils/request'`);
       codes.push(``);
-
-      // 指定URL
       codes.push(`// isApi的值可以为mock、api的便于整个文件的修改`);
       codes.push(`const isApi = 'api'`);
       codes.push(``);
@@ -129,7 +128,7 @@ export class ParseService implements ParseInterface {
    * @param formatter 用户传过来的formatter函数
    * @param item 单个item的所有信息
    */
-  createSingleInstance(functionNameFormatter: string, functionBodyFormatter: string, item: ItemChildrenStructure): string[] {
+  createSingleInstance(getFormatter: string, postFormatter: string, item: ItemChildrenStructure): string[] {
     // console.log(formatter, item);
     let codes = [];
     // 开始注释块
@@ -139,10 +138,8 @@ export class ParseService implements ParseInterface {
     // 结束注释块
     codes.push(` */`);
 
-    // 函数头
-    codes = codes.concat(this.createFunctionName(functionNameFormatter, item));
-    // 函数体
-    codes = codes.concat(this.createFunctionBody(functionBodyFormatter, item));
+    // 函数
+    codes = codes.concat(this.createFunction(getFormatter, postFormatter, item));
     // 完成
     return codes;
   }
@@ -168,40 +165,69 @@ export class ParseService implements ParseInterface {
     });
     return result;
   }
-  createFunctionName(functionNameFormatter: string, item: ItemChildrenStructure): string[] {
-    const fiterName = (checkName: string): boolean => {
-      return checkName === 'projectId' || checkName === 'projectName';
-    };
+  createFunction(getFormatter: string, postFormatter: string, item: ItemChildrenStructure): string[] {
+    const codes = [];
+    const functionName = this.utils.composeFunctionName(item.path, item.method);
+    const method = item.method.toUpperCase();
+    const path = item.path;
     const params = []; // 请求参数
-    const name = `${item.method}`; //
-
+    const pathParams = []; // path路径参数
+    const queryParams = []; // query请求参数
+    const headerParams = []; // header请求参数
+    const bodyParams = []; // body请求参数
+    const formatter = `export async funtion {functionName}({ {pathParams.join(',')}, ...params}) {
+    return request(/api{path},{
+    method: '{method}',
+    data: params
+  })
+}`;
     item.parameters.forEach(parameter => {
       switch (parameter.in) {
         case 'query':
-          if (!fiterName(parameter.name)) {
-            params.push('params');
+          if (!this.utils.fiterName(parameter.name)) {
+            queryParams.push(name);
           }
           break;
         case 'path':
-          if (!fiterName(parameter.name)) {
-            params.push(`${parameter.name}`);
+          if (!this.utils.fiterName(parameter.name)) {
+            queryParams.push(parameter.name);
           }
           break;
         case 'header':
-          break;
-        case 'body':
-          if (!fiterName(parameter.name)) {
-            params.push('params');
+          if (!this.utils.fiterName(parameter.name)) {
+            headerParams.push(parameter.name);
           }
           break;
+        case 'body':
+          if (!this.utils.fiterName(parameter.name)) {
+            bodyParams.push(parameter.name);
+          }
+          break;
+        default:
+        break;
       }
     });
 
-    return [''];
+    if (method === 'GET') {
+        const result = getFormatter.replace(/{[\w.(),' ]+}/g, (target) => {
+        const evalStr = target.replace(/\s*/g, '').replace(/[{}]/g, '');
+        // tslint:disable-next-line: no-eval
+        // const result = eval(evalStr);
+        // tslint:disable-next-line: no-eval
+        return eval(evalStr);
+        // const evalStr = `this.getObject[${targetTranslate}]`
+
+        // return this.getObject[target.replace(/\s*/g,"").replace(/[{}]/g, '')]
+      });
+        return [result];
+    } else {
+      console.log('else');
+      return [''];
+    }
   }
-  createFunctionBody(funtionBodyFormater: string, item: ItemChildrenStructure): string[] {
-    const path = item.path.replace(/({[^}]+})/g, '$$$1');
-    return [''];
-  }
+  // createFunctionBody(funtionBodyFormater: string, item: ItemChildrenStructure): string[] {
+  //   const path = item.path.replace(/({[^}]+})/g, '$$$1');
+  //   return [''];
+  // }
 
 }

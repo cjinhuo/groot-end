@@ -15,7 +15,7 @@ export class ParseController {
   }
 
   @Post('build')
-  async BuildCodeWithParam(@Body() { template, functionNameFormatter, functionBodyFormatter, include, url }: BuildCodeDto): Promise<any> {
+  async BuildCodeWithParam(@Body() { template, include, url, getFormatter, postFormatter }: BuildCodeDto): Promise<any> {
     const resolveUrl = this.utils.resolveSwaggerUrl(url);
     let codes = [];
     // 模板内容
@@ -24,7 +24,7 @@ export class ParseController {
     const selectedData = this.parseService.filterTreeWithIds(originData[0].children, include);
     // 单个函数的代码
     selectedData.forEach(item => {
-      const single = this.parseService.createSingleInstance(functionNameFormatter, functionBodyFormatter, item);
+      const single = this.parseService.createSingleInstance(getFormatter, postFormatter, item);
       codes = codes.concat(single);
     });
     return codes;

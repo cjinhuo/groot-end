@@ -6,8 +6,8 @@ export class BuildCodeDto {
   readonly url: string;
   readonly formatter: string;
   readonly template: string;
-  readonly functionNameFormatter: string;
-  readonly functionBodyFormatter: string;
+  readonly getFormatter: string;
+  readonly postFormatter: string;
 }
 
 /**

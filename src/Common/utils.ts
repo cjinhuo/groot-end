@@ -34,4 +34,37 @@ enum dataTypes {
         if (!/^https?:\/\//.test(url)) { url = 'http://' + url; }
         return `${url}/v2/api-docs`;
     }
+    /**
+     * 返回一个请求这个就接口的方法名
+     * @param path 接口路径
+     * @param method 接口方法
+     */
+  composeFunctionName(path: string, method: string): string {
+    const pathSplit = path.replace(/\/{([^}]+)}/g, '').split('/');
+    const collect = []
+    for(let i = 0; i < 2; i++) {
+      const element = pathSplit.pop();
+      if (element !== '') {
+        collect.unshift(this.capitalize(element));
+      }
+    }
+    return `${method}${collect.join('')}`
+  };
+
+  /**
+   * 将每个单词的首字母变为大写
+   * @param word 单词
+   * @param force [force=true] 强制除首字母外的字母小写
+   */
+  capitalize(word: string, force: boolean = true): string {
+    if (force) {
+      word = word.toLowerCase();
+    }
+    return word.replace(/^[a-z]/, function ($0) {
+      return $0.toUpperCase();
+    });
+  }
+  fiterName(checkName: string): boolean {
+    return checkName === 'projectId' || checkName === 'projectName';
+  };
 }
