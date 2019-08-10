@@ -6,10 +6,11 @@ import { BackFormatter } from '../Common/BackFormatter';
 export class GetSwaggerService implements GetSwaggerInterFace {
   constructor(private readonly httpService: HttpService, private readonly backFormatter: BackFormatter) { }
   async getSwaggerWithUrl(url: string): Promise<any> {
-    const res = await this.httpService.get(url).toPromise();
-    if (res.status >= 200 && res.status < 300) {
-      return res.data;
+    try {
+      const res = await this.httpService.get(url).toPromise();
+      return this.backFormatter.getResult(true, '请求成功', res.data);
+    } catch (error) {
+      return this.backFormatter.getResult(false, `请求错误失败${error}`, null);
     }
-    return this.backFormatter.getResult(false, '请求错误失败', null);
   }
 }
