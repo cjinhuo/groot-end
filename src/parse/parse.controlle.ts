@@ -30,9 +30,9 @@ export class ParseController {
       const selectedData = this.parseService.filterTreeWithIds(originData[0].children, include);
       // 单个函数的代码
       selectedData.forEach(item => {
-        console.log(item);
         const single = this.parseService.createSingleInstance(getFormatter, postFormatter, item);
         codes = codes.concat(single);
+        codes.push('\n\n');
       });
       return this.backFormatter.getResult(true, '成功生成代码', codes.join('\n'));
     }

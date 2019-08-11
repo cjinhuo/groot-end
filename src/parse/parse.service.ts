@@ -120,7 +120,7 @@ export class ParseService implements ParseInterface {
     } else {
       // 注释说明
       codes.push(`/**`);
-      codes.push(` * 以下代码属于自动生成，请勿手动修改`);
+      codes.push(` * 由于您没有传入默认template，以下是默认自动生成！`);
       codes.push(` */`);
       codes.push(``);
 
