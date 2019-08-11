@@ -1,8 +1,8 @@
 import { Module, HttpModule } from '@nestjs/common';
 import { ParseController } from './parse.controlle';
 import { ParseService } from './parse.service';
-import { BackFormatter } from 'src/Common/BackFormatter';
-import { GetSwaggerService } from 'src/getSwagger/getSwagger.service';
+import { BackFormatter } from '../Common/BackFormatter';
+import { GetSwaggerService } from '../getSwagger/getSwagger.service';
 import { Utils } from '../Common/utils';
 @Module({
   imports: [HttpModule.register({

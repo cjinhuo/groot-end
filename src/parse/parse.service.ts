@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import ParseInterface from './interfaces/parse.interface';
 import { ItemStructure, ItemChildrenStructure } from './dto/parse.dto';
-import { Utils } from 'src/Common/utils';
-import { GetSwaggerService } from 'src/getSwagger/getSwagger.service';
-import { BackFormatter } from 'src/Common/BackFormatter';
-import { BackFormatterDto } from 'src/Common/common.dto';
+import { Utils } from '../Common/utils';
+import { GetSwaggerService } from '../getSwagger/getSwagger.service';
+import { BackFormatter } from '../Common/BackFormatter';
+import { BackFormatterDto } from '../Common/common.dto';
 
 @Injectable()
 export class ParseService implements ParseInterface {

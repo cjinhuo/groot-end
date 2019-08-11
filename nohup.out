@@ -1,0 +1,45 @@
+internal/modules/cjs/loader.js:638
+    throw err;
+    ^
+
+Error: Cannot find module 'src/getSwagger/getSwagger.service'
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:636:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:562:25)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/Users/vig/Desktop/Groot/groot-end/dist/parse/parse.service.js:14:30)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+internal/modules/cjs/loader.js:638
+    throw err;
+    ^
+
+Error: Cannot find module 'src/Common/BackFormatter'
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:636:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:562:25)
+    at Module.require (internal/modules/cjs/loader.js:690:17)
+    at require (internal/modules/cjs/helpers.js:25:18)
+    at Object.<anonymous> (/Users/vig/Desktop/Groot/groot-end/dist/parse/parse.controlle.js:19:25)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:653:32)
+    at tryModuleLoad (internal/modules/cjs/loader.js:593:12)
+    at Function.Module._load (internal/modules/cjs/loader.js:585:3)
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[InstanceLoader] [39m[32mHttpModule dependencies initialized[39m[38;5;3m +23ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[InstanceLoader] [39m[32mHttpModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[InstanceLoader] [39m[32mGetSwaggerModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[InstanceLoader] [39m[32mParseModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[RoutesResolver] [39m[32mAppController {/hello}:[39m[38;5;3m +8ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[RouterExplorer] [39m[32mMapped {/hello, GET} route[39m[38;5;3m +4ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[RouterExplorer] [39m[32mMapped {/test, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[RoutesResolver] [39m[32mParseController {/parse}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[RouterExplorer] [39m[32mMapped {/list, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[RouterExplorer] [39m[32mMapped {/build, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[RoutesResolver] [39m[32mGetSwaggerController {/getSwagger}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 86968   - [39m2019-08-12 1:06 AM   [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +3ms[39m
