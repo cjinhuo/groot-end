@@ -1,9 +1,9 @@
 import { Controller, Get, Query, Post, Body } from '@nestjs/common';
 import { ParseService } from './parse.service';
 import { BuildCodeDto } from './dto/parse.dto';
-import { Utils } from '../Common/utils';
-import { BackFormatter } from '../Common/BackFormatter';
-import { BackFormatterDto } from '../Common/common.dto';
+import { Utils } from 'src/Common/utils';
+import { BackFormatter } from 'src/Common/BackFormatter';
+import { BackFormatterDto } from 'src/Common/common.dto';
 
 @Controller('parse')
 export class ParseController {

@@ -1,4 +1,4 @@
-import { ItemStructure, ItemChildrenStructure } from '../dto/parse.dto';
+import { ItemStructure, ItemChildrenStructure } from 'src/parse/dto/parse.dto';
 
 export default interface ParseInterface {
   createList: (url: string, prefix: string) => object;

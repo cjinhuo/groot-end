@@ -1,5 +1,4 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { BackFormatter } from '../Common/BackFormatter';
 import { GetSwaggerService } from './getSwagger.service';
 import { GetSwaggerDto } from './dto/GetSwaggerDto';
 

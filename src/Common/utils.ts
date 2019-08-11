@@ -41,15 +41,15 @@ enum dataTypes {
      */
   composeFunctionName(path: string, method: string): string {
     const pathSplit = path.replace(/\/{([^}]+)}/g, '').split('/');
-    const collect = []
-    for(let i = 0; i < 2; i++) {
+    const collect = [];
+    for (let i = 0; i < 2; i++) {
       const element = pathSplit.pop();
       if (element !== '') {
         collect.unshift(this.capitalize(element));
       }
     }
-    return `${method}${collect.join('')}`
-  };
+    return `${method}${collect.join('')}`;
+  }
 
   /**
    * 将每个单词的首字母变为大写
@@ -60,11 +60,11 @@ enum dataTypes {
     if (force) {
       word = word.toLowerCase();
     }
-    return word.replace(/^[a-z]/, function ($0) {
+    return word.replace(/^[a-z]/, function($0) {
       return $0.toUpperCase();
     });
   }
   fiterName(checkName: string): boolean {
     return checkName === 'projectId' || checkName === 'projectName';
-  };
+  }
 }

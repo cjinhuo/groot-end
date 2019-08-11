@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import ParseInterface from './interfaces/parse.interface';
 import { ItemStructure, ItemChildrenStructure } from './dto/parse.dto';
-import { Utils } from '../Common/utils';
-import { GetSwaggerService } from '../getSwagger/getSwagger.service';
-import { BackFormatter } from '../Common/BackFormatter';
-import { BackFormatterDto } from '../Common/common.dto';
+import { Utils } from 'src/Common/utils';
+import { GetSwaggerService } from 'src/getSwagger/getSwagger.service';
+import { BackFormatter } from 'src/Common/BackFormatter';
+import { BackFormatterDto } from 'src/Common/common.dto';
 
 @Injectable()
 export class ParseService implements ParseInterface {
@@ -53,7 +53,6 @@ export class ParseService implements ParseInterface {
         //     },
         //   },
         // ];
-        // 根据
         for (const path in data.paths) {
           if (!data.paths.hasOwnProperty(path)) {
             continue;
@@ -176,15 +175,19 @@ export class ParseService implements ParseInterface {
     return result;
   }
   createFunction(getFormatter: string, postFormatter: string, item: ItemChildrenStructure): string[] {
-    const reg = /{[\w.!=?:(),' ]+}/g;
+    const reg = /{[\w.!=?:(),'"+ ]+}/g;
     const codes = [];
     const functionName = this.utils.composeFunctionName(item.path, item.method);
     const method = item.method.toUpperCase();
-    const path = item.path;
+    const path = item.path.replace(/({[^}]+})/g, '$$$1');
+    // 预定于给用户用
+    const lB = '{';
+    const rB = '}';
     const pathParams = []; // path路径参数
     const queryParams = []; // query请求参数
     const headerParams = []; // header请求参数
     const bodyParams = []; // body请求参数
+    console.log(item);
     if (item.parameters) {
     item.parameters.forEach(parameter => {
       switch (parameter.in) {
@@ -213,41 +216,20 @@ export class ParseService implements ParseInterface {
       }
     });
   }
+    let formatter = '';
     if (method === 'GET') {
-      const result = getFormatter.replace(reg, (target) => {
-        const evalStr = target.replace(/\s*/g, '').replace(/[{}]/g, '');
-        // tslint:disable-next-line: no-eval
-        // const result = eval(evalStr);
-        // tslint:disable-next-line: no-eval
-        return eval(evalStr);
-        // const evalStr = `this.getObject[${targetTranslate}]`
-
-        // return this.getObject[target.replace(/\s*/g,"").replace(/[{}]/g, '')]
-      });
-      const final = result.split('\n').filter(v => {
-        return v.replace(/\s*/g, '') !== '';
-      });
-      return final;
+      formatter = getFormatter;
     } else {
-      const result = postFormatter.replace(reg, (target) => {
-        const evalStr = target.replace(/\s*/g, '').replace(/[{}]/g, '');
-        // tslint:disable-next-line: no-eval
-        // const result = eval(evalStr);
-        // tslint:disable-next-line: no-eval
-        return eval(evalStr);
-        // const evalStr = `this.getObject[${targetTranslate}]`
-
-        // return this.getObject[target.replace(/\s*/g,"").replace(/[{}]/g, '')]
-      });
-      const final = result.split('\n').filter(v => {
-        return v.replace(/\s*/g, '') !== '';
-      });
-      return final;
+      formatter = postFormatter;
     }
+    const result = formatter.replace(reg, (target) => {
+      const evalStr = target.replace(/[{}]/g, '');
+      // tslint:disable-next-line: no-eval
+      return eval(evalStr);
+    });
+    const final = result.replace('@', '').split('\n').filter(v => {
+      return v.replace(/\s*/g, '') !== '';
+    });
+    return final;
   }
-  // createFunctionBody(funtionBodyFormater: string, item: ItemChildrenStructure): string[] {
-  //   const path = item.path.replace(/({[^}]+})/g, '$$$1');
-  //   return [''];
-  // }
-
 }
