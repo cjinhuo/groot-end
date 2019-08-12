@@ -58,3 +58,310 @@ Error: Cannot find module 'src/Common/BackFormatter'
 [32m[Nest] 9785   - [39m2019-08-12 10:43 AM   [38;5;3m[RoutesResolver] [39m[32mGetSwaggerController {/getSwagger}:[39m[38;5;3m +1ms[39m
 [32m[Nest] 9785   - [39m2019-08-12 10:43 AM   [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
 [32m[Nest] 9785   - [39m2019-08-12 10:43 AM   [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +3ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[InstanceLoader] [39m[32mHttpModule dependencies initialized[39m[38;5;3m +24ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[InstanceLoader] [39m[32mHttpModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[InstanceLoader] [39m[32mGetSwaggerModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[InstanceLoader] [39m[32mParseModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[RoutesResolver] [39m[32mAppController {/hello}:[39m[38;5;3m +10ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[RouterExplorer] [39m[32mMapped {/hello, GET} route[39m[38;5;3m +3ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[RouterExplorer] [39m[32mMapped {/test, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[RoutesResolver] [39m[32mParseController {/parse}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[RouterExplorer] [39m[32mMapped {/list, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[RouterExplorer] [39m[32mMapped {/build, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[RoutesResolver] [39m[32mGetSwaggerController {/getSwagger}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 19794   - [39m2019-08-12 11:09 AM   [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +4ms[39m
+internal/modules/cjs/loader.js:638
+    throw err;
+    ^
+
+Error: Cannot find module '/Users/vig/Desktop/Groot/groot-end/dist/main.js'
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:636:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:562:25)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:829:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)
+internal/modules/cjs/loader.js:638
+    throw err;
+    ^
+
+Error: Cannot find module '/Users/vig/Desktop/Groot/groot-end/dist/main.js'
+    at Function.Module._resolveFilename (internal/modules/cjs/loader.js:636:15)
+    at Function.Module._load (internal/modules/cjs/loader.js:562:25)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:829:12)
+    at startup (internal/bootstrap/node.js:283:19)
+    at bootstrapNodeJSCore (internal/bootstrap/node.js:622:3)
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[InstanceLoader] [39m[32mHttpModule dependencies initialized[39m[38;5;3m +23ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[InstanceLoader] [39m[32mHttpModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[InstanceLoader] [39m[32mGetSwaggerModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[InstanceLoader] [39m[32mParseModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[RoutesResolver] [39m[32mAppController {/hello}:[39m[38;5;3m +9ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[RouterExplorer] [39m[32mMapped {/hello, GET} route[39m[38;5;3m +4ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[RouterExplorer] [39m[32mMapped {/test, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[RoutesResolver] [39m[32mParseController {/parse}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[RouterExplorer] [39m[32mMapped {/list, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[RouterExplorer] [39m[32mMapped {/build, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[RoutesResolver] [39m[32mGetSwaggerController {/getSwagger}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 23295   - [39m2019-08-12 2:00 PM   [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +5ms[39m
+{ id: 'get /boot/accounts',
+  label: '/boot/accounts',
+  method: 'get',
+  path: '/boot/accounts',
+  description: '获取子账号列表',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' },
+     '404': { description: 'Not Found' } },
+  operationId: 'listUsingGET',
+  consumes: [ 'application/json' ],
+  parameters:
+   [ { name: 'pageNum',
+       in: 'query',
+       description: '页数',
+       required: true,
+       type: 'integer',
+       format: 'int32' },
+     { name: 'pageSize',
+       in: 'query',
+       description: '分页大小',
+       required: true,
+       type: 'integer',
+       format: 'int32' },
+     { name: 'name',
+       in: 'query',
+       description: '登录名或用户名',
+       required: false,
+       type: 'string' } ] }
+{ id: 'post /boot/accounts/user',
+  label: '/boot/accounts/user',
+  method: 'post',
+  path: '/boot/accounts/user',
+  description: '新增子账号',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '201': { description: 'Created' },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' },
+     '404': { description: 'Not Found' } },
+  operationId: 'addUsingPOST',
+  consumes: [ 'application/json' ],
+  parameters:
+   [ { in: 'body',
+       name: 'userAddReq',
+       description: 'userAddReq',
+       required: true,
+       schema: [Object] } ] }
+{ id: 'delete /boot/accounts/users',
+  label: '/boot/accounts/users',
+  method: 'delete',
+  path: '/boot/accounts/users',
+  description: '删除子账号',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '204': { description: 'No Content' },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' } },
+  operationId: 'deleteUsersUsingDELETE',
+  consumes: [ 'application/json' ],
+  parameters:
+   [ { in: 'body',
+       name: 'userIdsReq',
+       description: 'userIdsReq',
+       required: true,
+       schema: [Object] } ] }
+{ id: 'put /boot/accounts/{userId}',
+  label: '/boot/accounts/{userId}',
+  method: 'put',
+  path: '/boot/accounts/{userId}',
+  description: '修改子账号',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '201': { description: 'Created' },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' },
+     '404': { description: 'Not Found' } },
+  operationId: 'updateUsingPUT',
+  consumes: [ 'application/json' ],
+  parameters:
+   [ { in: 'body',
+       name: 'updateReq',
+       description: 'updateReq',
+       required: true,
+       schema: [Object] },
+     { name: 'userId',
+       in: 'path',
+       description: '用户id',
+       required: true,
+       type: 'integer',
+       format: 'int64' } ] }
+{ id: 'put /boot/accounts/{userId}/resetPassword',
+  label: '/boot/accounts/{userId}/resetPassword',
+  method: 'put',
+  path: '/boot/accounts/{userId}/resetPassword',
+  description: '重置密码',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '201': { description: 'Created' },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' },
+     '404': { description: 'Not Found' } },
+  operationId: 'resetPasswordUsingPUT',
+  consumes: [ 'application/json' ],
+  parameters:
+   [ { name: 'userId',
+       in: 'path',
+       description: '用户id',
+       required: true,
+       type: 'integer',
+       format: 'int64' } ] }
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[InstanceLoader] [39m[32mHttpModule dependencies initialized[39m[38;5;3m +25ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[InstanceLoader] [39m[32mHttpModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[InstanceLoader] [39m[32mGetSwaggerModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[InstanceLoader] [39m[32mParseModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[RoutesResolver] [39m[32mAppController {/hello}:[39m[38;5;3m +11ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[RouterExplorer] [39m[32mMapped {/hello, GET} route[39m[38;5;3m +4ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[RouterExplorer] [39m[32mMapped {/test, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[RoutesResolver] [39m[32mParseController {/parse}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[RouterExplorer] [39m[32mMapped {/list, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[RouterExplorer] [39m[32mMapped {/build, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[RoutesResolver] [39m[32mGetSwaggerController {/getSwagger}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[RouterExplorer] [39m[32mMapped {/, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 69489   - [39m2019-08-12 4:43 PM   [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +4ms[39m
+{ id: 'get /boot/computingEngine/manager/engineTypes',
+  label: '/boot/computingEngine/manager/engineTypes',
+  method: 'get',
+  path: '/boot/computingEngine/manager/engineTypes',
+  description: '查询计算引擎下拉数据',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' },
+     '404': { description: 'Not Found' } },
+  operationId: 'engineTypeListUsingGET',
+  consumes: [ 'application/json' ],
+  parameters: undefined }
+{ id: 'get /boot/computingEngine/manager/engines',
+  label: '/boot/computingEngine/manager/engines',
+  method: 'get',
+  path: '/boot/computingEngine/manager/engines',
+  description: '计算引擎列表查询',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' },
+     '404': { description: 'Not Found' } },
+  operationId: 'queryListUsingGET',
+  consumes: [ 'application/json' ],
+  parameters:
+   [ { name: 'pageNum',
+       in: 'query',
+       description: '页数',
+       required: true,
+       type: 'integer',
+       format: 'int32' },
+     { name: 'pageSize',
+       in: 'query',
+       description: '分页大小',
+       required: true,
+       type: 'integer',
+       format: 'int32' } ] }
+{ id: 'post /boot/computingEngine/manager/engines',
+  label: '/boot/computingEngine/manager/engines',
+  method: 'post',
+  path: '/boot/computingEngine/manager/engines',
+  description: '新增计算引擎',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '201': { description: 'Created' },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' },
+     '404': { description: 'Not Found' } },
+  operationId: 'insertUsingPOST',
+  consumes: [ 'application/json' ],
+  parameters:
+   [ { in: 'body',
+       name: 'computingEngineRequest',
+       description: 'computingEngineRequest',
+       required: true,
+       schema: [Object] } ] }
+{ id: 'get /boot/computingEngine/manager/engines/{engineId}',
+  label: '/boot/computingEngine/manager/engines/{engineId}',
+  method: 'get',
+  path: '/boot/computingEngine/manager/engines/{engineId}',
+  description: '根据id查询计算引擎',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' },
+     '404': { description: 'Not Found' } },
+  operationId: 'getUsingGET',
+  consumes: [ 'application/json' ],
+  parameters:
+   [ { name: 'engineId',
+       in: 'path',
+       description: 'engineId',
+       required: true,
+       type: 'string' } ] }
+{ id: 'put /boot/computingEngine/manager/engines/{engineId}',
+  label: '/boot/computingEngine/manager/engines/{engineId}',
+  method: 'put',
+  path: '/boot/computingEngine/manager/engines/{engineId}',
+  description: '修改计算引擎',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '201': { description: 'Created' },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' },
+     '404': { description: 'Not Found' } },
+  operationId: 'updateUsingPUT_1',
+  consumes: [ 'application/json' ],
+  parameters:
+   [ { in: 'body',
+       name: 'computingEngineRequest',
+       description: 'computingEngineRequest',
+       required: true,
+       schema: [Object] },
+     { name: 'engineId',
+       in: 'path',
+       description: 'engineId',
+       required: true,
+       type: 'string' } ] }
+{ id: 'delete /boot/computingEngine/manager/engines/{engineId}',
+  label: '/boot/computingEngine/manager/engines/{engineId}',
+  method: 'delete',
+  path: '/boot/computingEngine/manager/engines/{engineId}',
+  description: '删除计算引擎',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '204': { description: 'No Content' },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' } },
+  operationId: 'deleteUsingDELETE',
+  consumes: [ 'application/json' ],
+  parameters:
+   [ { name: 'engineId',
+       in: 'path',
+       description: 'engineId',
+       required: true,
+       type: 'string' } ] }
+{ id: 'get /boot/computingEngine/manager/manufacturers',
+  label: '/boot/computingEngine/manager/manufacturers',
+  method: 'get',
+  path: '/boot/computingEngine/manager/manufacturers',
+  description: '查询厂商下拉数据',
+  responses:
+   { '200': { description: 'OK', schema: [Object] },
+     '401': { description: 'Unauthorized' },
+     '403': { description: 'Forbidden' },
+     '404': { description: 'Not Found' } },
+  operationId: 'listPeriodInstanceUsingGET',
+  consumes: [ 'application/json' ],
+  parameters: undefined }

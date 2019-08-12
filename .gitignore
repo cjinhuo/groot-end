@@ -34,7 +34,7 @@ cmake-build-debug/
 
 # IntelliJ
 out/
-nohup.out
+*.out
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
