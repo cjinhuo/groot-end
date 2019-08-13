@@ -32,7 +32,7 @@ export class ParseController {
       selectedData.forEach(item => {
         const single = this.parseService.createSingleInstance(getFormatter, postFormatter, item);
         codes = codes.concat(single);
-        codes.push('\n\n');
+        codes.push('\n');
       });
       return this.backFormatter.getResult(true, '成功生成代码', codes.join('\n'));
     }
