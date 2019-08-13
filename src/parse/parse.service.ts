@@ -175,7 +175,7 @@ export class ParseService implements ParseInterface {
     return result;
   }
   createFunction(getFormatter: string, postFormatter: string, item: ItemChildrenStructure): string[] {
-    const reg = /{[\w.!=?:(),'"+ ]+}/g;
+    const reg = /{[\w.!=?:(),/'$"+ ]+}/g;
     const codes = [];
     const functionName = this.utils.composeFunctionName(item.path, item.method);
     const method = item.method.toUpperCase();
