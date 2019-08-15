@@ -175,19 +175,19 @@ export class ParseService implements ParseInterface {
     return result;
   }
   createFunction(getFormatter: string, postFormatter: string, item: ItemChildrenStructure): string[] {
-    const reg = /{[\w.!=?:(),/'$"+ ]+}/g;
+    const reg = /{[\w.!=?:(),/'$"+\[\] ]+}/g;
     const codes = [];
+    // 预定于给用户用
     const functionName = this.utils.composeFunctionName(item.path, item.method);
     const method = item.method.toUpperCase();
     const path = item.path.replace(/({[^}]+})/g, '$$$1');
-    // 预定于给用户用
     const lB = '{';
     const rB = '}';
     const pathParams = []; // path路径参数
     const queryParams = []; // query请求参数
     const headerParams = []; // header请求参数
     const bodyParams = []; // body请求参数
-    console.log(item);
+
     if (item.parameters) {
     item.parameters.forEach(parameter => {
       switch (parameter.in) {

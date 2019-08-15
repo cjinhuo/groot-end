@@ -54,9 +54,9 @@ enum dataTypes {
   /**
    * 将每个单词的首字母变为大写
    * @param word 单词
-   * @param force [force=true] 强制除首字母外的字母小写
+   * @param force [force=false] 强制除首字母外的字母小写
    */
-  capitalize(word: string, force: boolean = true): string {
+  capitalize(word: string, force: boolean = false): string {
     if (force) {
       word = word.toLowerCase();
     }
