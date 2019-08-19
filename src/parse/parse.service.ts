@@ -176,6 +176,9 @@ export class ParseService implements ParseInterface {
   }
   createFunction(getFormatter: string, postFormatter: string, item: ItemChildrenStructure): string[] {
     const reg = /{[\w.!=?:(),/'$"+\[\] ]+}/g;
+    const variableReg = /^\$(\w+)\s*=\s*(\S+)\s*/g;
+    // 给用户定义参数的，然后把参数放进对象对面供用户使用
+    const $ = {}
     const codes = [];
     // 预定于给用户用
     const functionName = this.utils.composeFunctionName(item.path, item.method);
@@ -222,7 +225,13 @@ export class ParseService implements ParseInterface {
     } else {
       formatter = postFormatter;
     }
-    const result = formatter.replace(reg, (target) => {
+    const replacedStr =  formatter.replace(variableReg, (target) => {
+      const arr = target.replace(/\s*/g, "").replace('$', '').split('=')
+      const evalStr = `$['${arr[0]}']=${arr[1]}`
+      eval(evalStr)
+      return ''
+    });
+    const result = replacedStr.replace(reg, (target) => {
       const evalStr = target.replace(/[{}]/g, '');
       // tslint:disable-next-line: no-eval
       return eval(evalStr);
