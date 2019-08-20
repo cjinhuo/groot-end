@@ -200,9 +200,9 @@ export class ParseService implements ParseInterface {
           }
           break;
         case 'path':
-          if (!this.utils.fiterName(parameter.name)) {
+          // if (!this.utils.fiterName(parameter.name)) {
             pathParams.push(parameter.name);
-          }
+          // }
           break;
         case 'header':
           if (!this.utils.fiterName(parameter.name)) {
