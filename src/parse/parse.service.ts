@@ -88,14 +88,6 @@ export class ParseService implements ParseInterface {
               } else {
                 root.children.push(node);
               }
-              // else if (tagName) {
-              //   // 这段代码没有意思，没有插入到root里面
-              //   (tags[tagName] = {
-              //     id: tagName,
-              //     name: tagName,
-              //     children: [],
-              //   }).children.push(node);
-              // }
             } else {
               root.children.push(node);
             }
@@ -106,7 +98,6 @@ export class ParseService implements ParseInterface {
     } else {
       return res;
     }
-
   }
   /**
    * 生成模板代码
@@ -174,11 +165,17 @@ export class ParseService implements ParseInterface {
     });
     return result;
   }
+  /**
+   *
+   * @param getFormatter get方法格式
+   * @param postFormatter post方法的格式
+   * @param item 单个接口的数据
+   */
   createFunction(getFormatter: string, postFormatter: string, item: ItemChildrenStructure): string[] {
     const reg = /{[\w.!=?:(),/'$"+\[\] ]+}/g;
     const variableReg = /^\$(\w+)\s*=\s*(\S+)\s*/g;
     // 给用户定义参数的，然后把参数放进对象对面供用户使用
-    const $ = {}
+    const $ = {};
     const codes = [];
     // 预定于给用户用
     const functionName = this.utils.composeFunctionName(item.path, item.method);
@@ -203,7 +200,7 @@ export class ParseService implements ParseInterface {
           // if (!this.utils.fiterName(parameter.name)) {
             pathParams.push(parameter.name);
           // }
-          break;
+            break;
         case 'header':
           if (!this.utils.fiterName(parameter.name)) {
             headerParams.push(parameter.name);
@@ -226,10 +223,10 @@ export class ParseService implements ParseInterface {
       formatter = postFormatter;
     }
     const replacedStr =  formatter.replace(variableReg, (target) => {
-      const arr = target.replace(/\s*/g, "").replace('$', '').split('=')
-      const evalStr = `$['${arr[0]}']=${arr[1]}`
-      eval(evalStr)
-      return ''
+      const arr = target.replace(/\s*/g, '').replace('$', '').split('=');
+      const evalStr = `$['${arr[0]}']=${arr[1]}`;
+      eval(evalStr);
+      return '';
     });
     const result = replacedStr.replace(reg, (target) => {
       const evalStr = target.replace(/[{}]/g, '');
@@ -240,5 +237,12 @@ export class ParseService implements ParseInterface {
       return v.replace(/\s*/g, '') !== '';
     });
     return final;
+  }
+  /**
+   *
+   * @param item 单个接口的数据
+   */
+  createComment(item: ItemChildrenStructure): string[] {
+    return [''];
   }
 }

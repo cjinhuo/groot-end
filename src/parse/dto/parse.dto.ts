@@ -32,6 +32,3 @@ export class ItemChildrenStructure {
   readonly parameters: any[];
 }
 
-export class FormatterCondition {
-
-}
