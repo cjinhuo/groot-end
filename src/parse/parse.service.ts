@@ -5,6 +5,7 @@ import { Utils } from '../Common/utils';
 import { GetSwaggerService } from '../getSwagger/getSwagger.service';
 import { BackFormatter } from '../Common/BackFormatter';
 import { BackFormatterDto } from '../Common/common.dto';
+import siwa = require('siwa');
 
 @Injectable()
 export class ParseService implements ParseInterface {
@@ -23,7 +24,8 @@ export class ParseService implements ParseInterface {
     };
     const res = await this.getSwaggerService.getSwaggerWithUrl(url);
     if (res.success) {
-      const data = res.data;
+      const data = siwa.parse(res.data);
+      console.log('spec', data);
       const tags = {};
       if (data.tags) {
         // 添加第一层children，以tag来遍历
@@ -62,7 +64,6 @@ export class ParseService implements ParseInterface {
             if (!data.paths[path].hasOwnProperty(method)) {
               continue;
             }
-
             const def = data.paths[path][method];
             const node = {
               id: `${method} ${path}`,
@@ -77,7 +78,6 @@ export class ParseService implements ParseInterface {
               // 对象会放在definitions
               parameters: def.parameters,
             };
-
             if (def.tags && def.tags.length) {
               const tagName = def.tags[0];
               // 上面有定义一个tags对象存入root，这里用tags[tagName].children的引用

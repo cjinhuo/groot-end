@@ -30,6 +30,7 @@
     "reflect-metadata": "0.1.13",
     "rimraf": "2.6.3",
     "rxjs": "6.4.0",
+    "siwa": "^1.0.2",
     "ts-loader": "^6.0.4"
   },
   "devDependencies": {
