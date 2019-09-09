@@ -1,4 +1,4 @@
-import { ItemStructure, ItemChildrenStructure } from 'src/parse/dto/parse.dto';
+import { ItemStructure, ItemChildrenStructure, ParamTypes } from 'src/parse/dto/parse.dto';
 
 export default interface ParseInterface {
   /**
@@ -30,11 +30,17 @@ export default interface ParseInterface {
    *
    * @memberof ParseInterface
    */
-  createFunction: (getFormatter: string, postFormatter: string, item: ItemChildrenStructure) => string[];
+  createFunction: (getFormatter: string, postFormatter: string, item: ItemChildrenStructure, paramsType: ParamTypes) => string[];
   /**
    * 创建单个函数的注释
    *
    * @memberof ParseInterface
    */
-  createComment: (item: ItemChildrenStructure) => string[];
+  createComment: (paramsType: ParamTypes) => string[];
+  /**
+   * 遍历单个接口的数据，返回生成函数体和生成jsdoc所需要的字段
+   *
+   * @memberof ParseInterface
+   */
+  traverseParameters: (item: ItemChildrenStructure) => ParamTypes;
 }

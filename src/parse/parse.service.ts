@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import ParseInterface from './interfaces/parse.interface';
-import { ItemStructure, ItemChildrenStructure } from './dto/parse.dto';
+import { ItemStructure, ItemChildrenStructure, ParamTypes } from './dto/parse.dto';
 import { Utils } from '../Common/utils';
 import { GetSwaggerService } from '../getSwagger/getSwagger.service';
 import { BackFormatter } from '../Common/BackFormatter';
 import { BackFormatterDto } from '../Common/common.dto';
 import siwa = require('siwa');
+import { commentParam, commentPromise } from '../Common/comment';
 
 @Injectable()
 export class ParseService implements ParseInterface {
@@ -25,7 +26,6 @@ export class ParseService implements ParseInterface {
     const res = await this.getSwaggerService.getSwaggerWithUrl(url);
     if (res.success) {
       const data = siwa.parse(res.data);
-      console.log('spec', data);
       const tags = {};
       if (data.tags) {
         // 添加第一层children，以tag来遍历
@@ -129,17 +129,18 @@ export class ParseService implements ParseInterface {
    * @param item 单个item的所有信息
    */
   createSingleInstance(getFormatter: string, postFormatter: string, item: ItemChildrenStructure): string[] {
-    // console.log(formatter, item);
     let codes = [];
+    const paramsType = this.traverseParameters(item);
     // 开始注释块
     codes.push(`/**`);
     // 接口描述
     codes.push(` * ${item.description}`);
+    // jsdoc 参数
+    codes = codes.concat(this.createComment(paramsType));
     // 结束注释块
     codes.push(` */`);
-
-    // 函数
-    codes = codes.concat(this.createFunction(getFormatter, postFormatter, item));
+    // 函数体
+    codes = codes.concat(this.createFunction(getFormatter, postFormatter, item, paramsType));
     // 完成
     return codes;
   }
@@ -171,7 +172,7 @@ export class ParseService implements ParseInterface {
    * @param postFormatter post方法的格式
    * @param item 单个接口的数据
    */
-  createFunction(getFormatter: string, postFormatter: string, item: ItemChildrenStructure): string[] {
+  createFunction(getFormatter: string, postFormatter: string, item: ItemChildrenStructure, paramsType: ParamTypes): string[] {
     const reg = /{[\w.!=?:(),/'$"+\[\] ]+}/g;
     const variableReg = /^\$(\w+)\s*=\s*(\S+)\s*/g;
     // 给用户定义参数的，然后把参数放进对象对面供用户使用
@@ -183,39 +184,8 @@ export class ParseService implements ParseInterface {
     const path = item.path.replace(/({[^}]+})/g, '$$$1');
     const lB = '{';
     const rB = '}';
-    const pathParams = []; // path路径参数
-    const queryParams = []; // query请求参数
-    const headerParams = []; // header请求参数
-    const bodyParams = []; // body请求参数
+    const { pathParams, queryParams, headerParams, bodyParams } = paramsType;
 
-    if (item.parameters) {
-    item.parameters.forEach(parameter => {
-      switch (parameter.in) {
-        case 'query':
-          if (!this.utils.fiterName(parameter.name)) {
-            queryParams.push(parameter.name);
-          }
-          break;
-        case 'path':
-          // if (!this.utils.fiterName(parameter.name)) {
-            pathParams.push(parameter.name);
-          // }
-            break;
-        case 'header':
-          if (!this.utils.fiterName(parameter.name)) {
-            headerParams.push(parameter.name);
-          }
-          break;
-        case 'body':
-          if (!this.utils.fiterName(parameter.name)) {
-            bodyParams.push(parameter.name);
-          }
-          break;
-        default:
-          break;
-      }
-    });
-  }
     let formatter = '';
     if (method === 'GET') {
       formatter = getFormatter;
@@ -242,7 +212,113 @@ export class ParseService implements ParseInterface {
    *
    * @param item 单个接口的数据
    */
-  createComment(item: ItemChildrenStructure): string[] {
-    return [''];
+  createComment(paramsType: ParamTypes): string[] {
+    const { bodies, queries, headers, paths, responses } = paramsType.commentParams;
+    const codes = [];
+    if (paths.length) {
+      paths.forEach(p => {
+        commentParam(p, codes);
+      });
+    }
+
+    // 消息体参数描述
+    if (bodies.length) {
+      // 消息体参数只有一个
+      const body = bodies[0];
+      // 如果与已有参数同名, 则直接使用data
+      commentParam(body, codes);
+    }
+    // 查询参数描述
+    if (queries.length) {
+      commentParam({
+        name: 'params',
+        type: 'object',
+        required: true,
+        children: queries,
+        description: '查询参数',
+      }, codes);
+    }
+    // 消息头参数描述
+    if (headers.length) {
+      commentParam({
+        name: 'headers',
+        type: 'object',
+        required: true,
+        children: headers,
+        description: '消息头参数',
+      }, codes);
+    }
+    if (responses) {
+      Object.keys(responses).forEach((name, index) => {
+        // 只返回200的 response
+        if (index > 0) { return; }
+
+        const res = Object.assign({
+          name,
+        }, responses[name]);
+        codes.push(commentPromise(res));
+      });
+    }
+    return codes;
+  }
+
+  /**
+   * 遍历单个接口的数据，返回生成函数体和生成jsdoc所需要的字段
+   * @param item 单个接口的数据
+   */
+  traverseParameters(item: ItemChildrenStructure): ParamTypes {
+    const pathParams = []; // path路径参数
+    const queryParams = []; // query请求参数
+    const headerParams = []; // header请求参数
+    const bodyParams = []; // body请求参数
+    const bodies = [];  // 消息体参数
+    const queries = []; // 查询参数
+    const headers = []; // header参数
+    const paths = []; // 路径参数
+    const responses = item.responses;
+
+    if (item.parameters) {
+      item.parameters.forEach(parameter => {
+        switch (parameter.in) {
+          case 'query':
+            if (!this.utils.fiterName(parameter.name)) {
+              queryParams.push(parameter.name);
+              queries.push(parameter);
+            }
+            break;
+          case 'path':
+            pathParams.push(parameter.name);
+            paths.push(parameter);
+            break;
+          case 'header':
+            if (!this.utils.fiterName(parameter.name)) {
+              headerParams.push(parameter.name);
+            }
+            headers.push(parameter);
+            break;
+          case 'body':
+            if (!this.utils.fiterName(parameter.name)) {
+              bodyParams.push(parameter.name);
+              bodies.push(parameter);
+            }
+            break;
+          default:
+            break;
+        }
+      });
+    }
+    return {
+      pathParams,
+      queryParams,
+      headerParams,
+      bodyParams,
+      commentParams: {
+        bodies,
+        queries,
+        headers,
+        paths,
+        responses,
+      },
+    };
   }
 }

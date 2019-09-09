@@ -28,7 +28,23 @@ export class ItemChildrenStructure {
   readonly method: string;
   readonly path: string;
   readonly description: string;
-  readonly response: any;
+  readonly operationId: string;
+  readonly responses: any;
   readonly parameters: any[];
 }
 
+export class ParamTypes {
+  // 用来生成函数体
+  readonly pathParams: any[];
+  readonly queryParams: any[];
+  readonly headerParams: any[];
+  readonly bodyParams: any[];
+  // 用来生成函数注释的
+  readonly commentParams: {
+    bodies: any[];
+    queries: any[];
+    headers: any[];
+    paths: any[];
+    responses: any;
+  };
+}

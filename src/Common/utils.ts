@@ -17,6 +17,7 @@ enum dataTypes {
     SYMBOL= 'symbol',
     BUFFER= 'buffer',
   }
+
 @Injectable()
   export class Utils {
     /**
@@ -45,7 +46,7 @@ enum dataTypes {
     for (let i = 0; i < 2; i++) {
       const element = pathSplit.pop();
       if (element !== '') {
-        collect.unshift(this.capitalize(element));
+        collect.unshift(Utils.capitalize(element));
       }
     }
     return `${method}${collect.join('')}`;
@@ -56,7 +57,7 @@ enum dataTypes {
    * @param word 单词
    * @param force [force=false] 强制除首字母外的字母小写
    */
-  capitalize(word: string, force: boolean = false): string {
+ static capitalize(word: string, force: boolean = false): string {
     if (force) {
       word = word.toLowerCase();
     }
