@@ -31,7 +31,8 @@ enum dataTypes {
     }
     resolveSwaggerUrl(url: string): string {
         url = url.replace(/\/swagger-ui\.html.*$/, '')
-          .replace(/\/+$/, '');
+          .replace(/\/+$/, '')
+          .replace(/\/v2\/api-docs/, '');
         if (!/^https?:\/\//.test(url)) { url = 'http://' + url; }
         return `${url}/v2/api-docs`;
     }
