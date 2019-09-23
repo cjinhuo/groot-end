@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import ParseInterface from './interfaces/parse.interface';
-import { ItemStructure, ItemChildrenStructure, ParamTypes } from './dto/parse.dto';
+import { ItemStructure, ItemChildrenStructure, ParamTypes, AndroidObject } from './dto/parse.dto';
 import { Utils } from '../Common/utils';
 import { GetSwaggerService } from '../getSwagger/getSwagger.service';
 import { BackFormatter } from '../Common/BackFormatter';
@@ -129,6 +129,7 @@ export class ParseService implements ParseInterface {
    * @param item 单个item的所有信息
    */
   createSingleInstance(getFormatter: string, postFormatter: string, item: ItemChildrenStructure): string[] {
+    // console.log('item', item);
     let codes = [];
     const paramsType = this.traverseParameters(item);
     // 开始注释块
@@ -320,5 +321,10 @@ export class ParseService implements ParseInterface {
         responses,
       },
     };
+  }
+  createSingleAndroidInfo(item: ItemChildrenStructure): AndroidObject {
+    let result = new AndroidObject()
+    
+    return result;
   }
 }

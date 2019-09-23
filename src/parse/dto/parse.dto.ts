@@ -48,3 +48,18 @@ export class ParamTypes {
     responses: any;
   };
 }
+
+/**
+ * 给安卓生成的json结构体
+ */
+export class AndroidObject {
+   path: string;	// 接口路径
+   comment: string; // 接口注释
+   method: string;	// 请求方式
+   hasHeader: boolean; // 是否含有Header
+   hasBody: boolean;	// 是否含有Body
+   hasQueryMap: boolean; // 是否含有QueryMap
+   hasFormBody: boolean; // 是否为form表单，与hasBody互斥
+   isArray: boolean; 	// response是否为array
+   fieldBeans: any; // response中第一层的字段
+}

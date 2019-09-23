@@ -1,4 +1,4 @@
-import { ItemStructure, ItemChildrenStructure, ParamTypes } from 'src/parse/dto/parse.dto';
+import { ItemStructure, ItemChildrenStructure, ParamTypes, AndroidObject } from 'src/parse/dto/parse.dto';
 
 export default interface ParseInterface {
   /**
@@ -43,4 +43,10 @@ export default interface ParseInterface {
    * @memberof ParseInterface
    */
   traverseParameters: (item: ItemChildrenStructure) => ParamTypes;
+  /**
+   * 创建安卓需要的json格式，针对单个接口
+   *
+   * @memberof ParseInterface
+   */
+  createSingleAndroidInfo: (item: ItemChildrenStructure) => AndroidObject;
 }

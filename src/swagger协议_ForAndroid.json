@@ -1,0 +1,43 @@
+{
+	"code":0,
+	"errMsg":"",
+	"data":[
+	{
+		"path":"/iot/initDevice",								//接口路径
+		"comment":"设备注册接口，应在app启动时调用。",				//接口注释
+		"method":"POST",										//请求方式
+		"hasHeader":true,										//是否含有Header
+		"hasBody":true,											//是否含有Body
+		"hasQueryMap":true,										//是否含有QueryMap
+		"hasFormBody":false,									//是否为form表单，与hasBody互斥
+		"isArray":false,										//response是否为array
+		"fieldBeans":[											//response中第一层的字段
+		{
+			"fieldName":"userName",
+			"fieldComment":"用户昵称",
+			"fieldType":String
+		},
+		{
+			"fieldName":"age",
+			"fieldComment":"用户年龄",
+			"fieldType":int
+		},
+		{
+			"fieldName":"isVip",
+			"fieldComment":"是否是会员",
+			"fieldType":boolean
+		},
+		{
+			"fieldName":"birthday",
+			"fieldComment":"生日时间戳",
+			"fieldType":long
+		},
+		{
+			"fieldName":"firends"
+			"fieldComment":"好友",
+			"fieldType":other
+		}
+		]
+	}
+	]
+}

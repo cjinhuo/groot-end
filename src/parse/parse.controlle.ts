@@ -37,6 +37,20 @@ export class ParseController {
       return this.backFormatter.getResult(true, '成功生成代码', codes.join('\n'));
     }
     return listRes;
-
+  }
+  @Get('android')
+  async getSwaggerMapJsonForAndroid(@Query() { url, include }: { url: string, include: string[] }){
+    const resolveUrl = this.utils.resolveSwaggerUrl(url);
+    let json = {
+      code: 0,
+      errMsg: '',
+      data:[]
+    }
+    const listRes = await this.parseService.createList(resolveUrl);
+    if (listRes.success) {
+      const originData = listRes.data;
+      // 获取用户勾选的数据
+      const selectedData = this.parseService.filterTreeWithIds(originData[0].children, include);
+    }
   }
 }
