@@ -344,12 +344,17 @@ export class ParseService implements ParseInterface {
       result.hasFormBody = true
     }
     const response = this.getResponseData(item);
-    if (response) {
-      result.exposeData();
+    if (!response) {
+      return result.exposeData();
     }
     if (response.type === 'array') {
       result.isArray = true
-      result.fieldBeans = this.traverseResponse(response.children[0].children)
+      try {
+        result.fieldBeans = this.traverseResponse(response.children[0].children)
+        
+      } catch (error) {
+        console.error('array格式不规范')
+      }
     } else if (response.type === 'object') {
       result.fieldBeans = this.traverseResponse(response.children)
     } else {
@@ -379,10 +384,24 @@ export class ParseService implements ParseInterface {
     return item.parameters;
   }
   getResponseData(item: ItemChildrenStructure): any {
+    // console.log(`item.responses['200']`, item.responses['200'])
     const responseParent = item.responses['200'].children;
-    let result = this.utils.findObjectInArray(responseParent, 'name', 'value');
-    if (result.children && this.utils.findObjectInArray(result.children, 'name', 'data')) {
-      result = this.utils.findObjectInArray(result.children, 'name', 'data')
+    let result = Array.isArray(responseParent) ? this.utils.findObjectInArray(responseParent, 'name', 'value') : responseParent;
+    // 可能是这种{ name: '200', description: 'OK', type: 'string' 
+    if (responseParent){
+      // 可能没有value
+      if (result) {
+        // console.log('value', result)
+        // 可能没有data
+        if (result.children && Array.isArray(result.children) && this.utils.findObjectInArray(result.children, 'name', 'data')) {
+          result = this.utils.findObjectInArray(result.children, 'name', 'data')
+        }
+      } else {
+        // 没有value对应的话直接复制
+        result = responseParent;
+      }
+    } else {
+      return item.responses['200'];
     }
     return result;
   }
