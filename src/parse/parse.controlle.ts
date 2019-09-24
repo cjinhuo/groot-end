@@ -38,19 +38,50 @@ export class ParseController {
     }
     return listRes;
   }
-  @Get('android')
-  async getSwaggerMapJsonForAndroid(@Query() { url, include }: { url: string, include: string[] }){
+  @Post('android')
+  async postSwaggerMapJsonForAndroid(@Body() { url, include }: { url: string, include: string[] }):Promise<BackFormatterDto>{
     const resolveUrl = this.utils.resolveSwaggerUrl(url);
     let json = {
       code: 0,
-      errMsg: '',
+      errMsg: '正常返回',
       data:[]
     }
     const listRes = await this.parseService.createList(resolveUrl);
     if (listRes.success) {
       const originData = listRes.data;
-      // 获取用户勾选的数据
       const selectedData = this.parseService.filterTreeWithIds(originData[0].children, include);
+      selectedData.forEach(item => {
+        json.data.push(this.parseService.createSingleAndroidInfo(item));
+      })
+      return this.backFormatter.getResult(true, '成功生成安卓JSON', json);
     }
+    json.code === 500
+    json.errMsg = '请求不到Swagger地址'
+    return this.backFormatter.getResult(false, '生成安卓JSON失败', json);
+  }
+  @Get('android')
+  async getSwaggerMapJsonForAndroid(@Query() { url }: { url: string }): Promise<BackFormatterDto> {
+    const resolveUrl = this.utils.resolveSwaggerUrl(url);
+    let json = {
+      code: 0,
+      errMsg: '正常返回',
+      data: []
+    }
+    const listRes = await this.parseService.createList(resolveUrl);
+    if (listRes.success) {
+      const originData = listRes.data;
+      // 获取所有单条接口的数据
+      let allData = []
+      Object.values(originData[0].children).forEach(value => {
+        allData = [].concat(allData, Object.values(value['children']))
+      })
+      allData.forEach(item => {
+        json.data.push(this.parseService.createSingleAndroidInfo(item));
+      })
+      return this.backFormatter.getResult(true, '成功生成安卓JSON', json);
+    }
+    json.code === 500
+    json.errMsg = '请求不到Swagger地址'
+    return this.backFormatter.getResult(false, '生成安卓JSON失败', json);
   }
 }

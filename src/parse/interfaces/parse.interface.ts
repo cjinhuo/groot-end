@@ -49,4 +49,16 @@ export default interface ParseInterface {
    * @memberof ParseInterface
    */
   createSingleAndroidInfo: (item: ItemChildrenStructure) => AndroidObject;
+  /**
+   * 获取单个接口的response数据，因为可能有多层
+   *
+   * @memberof ParseInterface
+   */
+  getResponseData: (item: ItemChildrenStructure) => any;
+  /**
+   * 遍历response的对象数组
+   *
+   * @memberof ParseInterface
+   */
+  traverseResponse: (response: any[]) => any [];
 }

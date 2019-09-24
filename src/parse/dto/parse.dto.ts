@@ -39,6 +39,7 @@ export class ParamTypes {
   readonly queryParams: any[];
   readonly headerParams: any[];
   readonly bodyParams: any[];
+  readonly formBodyParams: any[];
   // 用来生成函数注释的
   readonly commentParams: {
     bodies: any[];
@@ -61,5 +62,25 @@ export class AndroidObject {
    hasQueryMap: boolean; // 是否含有QueryMap
    hasFormBody: boolean; // 是否为form表单，与hasBody互斥
    isArray: boolean; 	// response是否为array
-   fieldBeans: any; // response中第一层的字段
+   fieldBeans: any[]; // response中第一层的字段
+   constructor() {
+    this.hasBody = false;
+    this.hasFormBody = false;
+    this.hasHeader = false;
+    this.hasQueryMap = false;
+    this.isArray = false;
+   }
+   exposeData() {
+    return {
+      path: this.path,
+      comment: this.comment,
+      method: this.method,
+      hasHeader: this.hasHeader,
+      hasBody: this.hasBody,
+      hasQueryMap: this.hasQueryMap,
+      hasFormBody: this.hasFormBody,
+      isArray: this.isArray,
+      fieldBeans: this.fieldBeans,
+    };
+   }
 }

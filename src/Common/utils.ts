@@ -69,4 +69,35 @@ enum dataTypes {
   fiterName(checkName: string): boolean {
     return checkName === 'projectId' || checkName === 'projectName';
   }
+  /**
+   * 在一个对象数组中找到[prop]为target的对象
+   *
+   * @param {any[]} arr 对象数组
+   * @param {string} prop 属性
+   * @param {string} target 属性对应的值
+   * @returns {*}
+   * @memberof Utils
+   */
+  findObjectInArray(arr: any[], prop: string, target: string): any {
+    const result = arr.find(v => v[prop] === target);
+    return result && (Object.keys(result).length > 0 ? result : false);
+  }
+  transformFieldTypeForAndroid(type: string): string {
+    switch (type) {
+      case 'int32':
+      case 'int64':
+        return 'int';
+      case 'string':
+        return 'string';
+      case 'long':
+        return 'long';
+      case 'boolean':
+        return 'boolean';
+      case 'BigDecimal':
+      case 'number':
+        return 'BigDecimal';
+      default:
+        return 'other';
+    }
+  }
 }

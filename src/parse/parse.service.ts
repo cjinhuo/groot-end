@@ -129,7 +129,6 @@ export class ParseService implements ParseInterface {
    * @param item 单个item的所有信息
    */
   createSingleInstance(getFormatter: string, postFormatter: string, item: ItemChildrenStructure): string[] {
-    // console.log('item', item);
     let codes = [];
     const paramsType = this.traverseParameters(item);
     // 开始注释块
@@ -272,6 +271,7 @@ export class ParseService implements ParseInterface {
     const queryParams = []; // query请求参数
     const headerParams = []; // header请求参数
     const bodyParams = []; // body请求参数
+    const formBodyParams = []; // formBody 请求参数
     const bodies = [];  // 消息体参数
     const queries = []; // 查询参数
     const headers = []; // header参数
@@ -303,6 +303,8 @@ export class ParseService implements ParseInterface {
               bodies.push(parameter);
             }
             break;
+          case 'formData':
+            formBodyParams.push(parameter.name)
           default:
             break;
         }
@@ -313,6 +315,7 @@ export class ParseService implements ParseInterface {
       queryParams,
       headerParams,
       bodyParams,
+      formBodyParams,
       commentParams: {
         bodies,
         queries,
@@ -322,9 +325,65 @@ export class ParseService implements ParseInterface {
       },
     };
   }
-  createSingleAndroidInfo(item: ItemChildrenStructure): AndroidObject {
+  createSingleAndroidInfo(item: ItemChildrenStructure): any {
     let result = new AndroidObject()
-    
+    result.path = item.path;
+    result.comment = item.description;
+    result.method = item.method.toUpperCase();
+    const params = this.traverseParameters(item);
+    if (params.bodyParams.length > 0) {
+      result.hasBody = true
+    }
+    if (params.headerParams.length > 0){
+      result.hasHeader = true;
+    }
+    if (params.queryParams.length > 0){
+      result.hasQueryMap = true
+    }
+    if (params.formBodyParams.length > 0) {
+      result.hasFormBody = true
+    }
+    const response = this.getResponseData(item);
+    if (response) {
+      result.exposeData();
+    }
+    if (response.type === 'array') {
+      result.isArray = true
+      result.fieldBeans = this.traverseResponse(response.children[0].children)
+    } else if (response.type === 'object') {
+      result.fieldBeans = this.traverseResponse(response.children)
+    } else {
+      result.fieldBeans = [
+        {
+          fieldName: '',
+          fieldComment: response.description || '',
+          fieldType: response.type
+        }
+      ]
+    }
+    return result.exposeData();
+  }
+  traverseResponse(response: any[]): any[] {
+    const arr = []
+    response.forEach(value => {
+      const temp = {
+        fieldName: value.name,
+        fieldComment: value.description || '',
+        fieldType: this.utils.transformFieldTypeForAndroid(value.type)
+      }
+      arr.push(temp)
+    })
+    return arr;
+  }
+  getParameterData(item: ItemChildrenStructure): any {
+    return item.parameters;
+  }
+  getResponseData(item: ItemChildrenStructure): any {
+    const responseParent = item.responses['200'].children;
+    let result = this.utils.findObjectInArray(responseParent, 'name', 'value');
+    if (result.children && this.utils.findObjectInArray(result.children, 'name', 'data')) {
+      result = this.utils.findObjectInArray(result.children, 'name', 'data')
+    }
     return result;
   }
 }
