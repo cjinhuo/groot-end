@@ -9,7 +9,7 @@ git clone https://github.com/TypeInfos/groot-end.git
 cd /groot-end
 npm i
 npm run start
-(http://localhost:8080/)
+(http://localhost:80/)
 ```
 ## 技术栈
 * nest
@@ -17,5 +17,5 @@ npm run start
 
 
 ## 支持
-`rustful`风格接口用起来更舒服。,在线测试地址：[点击测试](http://45.77.87.244:8080/)
+`rustful`风格接口用起来更舒服。,在线测试地址：[点击测试](http://notcare.xyz/)
 
