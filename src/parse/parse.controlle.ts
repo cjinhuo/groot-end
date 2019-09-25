@@ -62,11 +62,7 @@ export class ParseController {
   @Get('android')
   async getSwaggerMapJsonForAndroid(@Query() { url }: { url: string }): Promise<BackFormatterDto> {
     const resolveUrl = this.utils.resolveSwaggerUrl(url);
-    let json = {
-      code: 0,
-      errMsg: '正常返回',
-      data: []
-    }
+    let data = []
     const listRes = await this.parseService.createList(resolveUrl);
     if (listRes.success) {
       const originData = listRes.data;
@@ -76,12 +72,10 @@ export class ParseController {
         allData = [].concat(allData, Object.values(value['children']))
       })
       allData.forEach(item => {
-        json.data.push(this.parseService.createSingleAndroidInfo(item));
+        data.push(this.parseService.createSingleAndroidInfo(item));
       })
-      return this.backFormatter.getResult(true, '成功生成安卓JSON', json);
+      return this.backFormatter.getResult(true, '成功生成安卓JSON', data);
     }
-    json.code === 500
-    json.errMsg = '请求不到Swagger地址'
-    return this.backFormatter.getResult(false, '生成安卓JSON失败', json);
+    return this.backFormatter.getResult(false, '请求不到swaggerjson', data);
   }
 }

@@ -82,20 +82,28 @@ enum dataTypes {
     const result = arr.find(v => v[prop] === target);
     return result && (Object.keys(result).length > 0 ? result : false);
   }
-  transformFieldTypeForAndroid(type: string): string {
-    switch (type) {
-      case 'int32':
-      case 'int64':
-        return 'int';
+  // 传入response对象，输出该对象的type
+  transformFieldTypeForAndroid(value: any): string {
+    switch (value.type) {
+      case 'integer':
+        if (value.format && value.format === 'int32'){
+          return 'int'
+        } else {
+          return 'long'
+        }
       case 'string':
         return 'string';
-      case 'long':
-        return 'long';
       case 'boolean':
         return 'boolean';
       case 'BigDecimal':
       case 'number':
-        return 'BigDecimal';
+        if (value.format && value.format === 'int32'){
+          return 'int'
+        } else if (value.format && value.format === 'int64') {
+          return 'long'
+        } else {
+          return 'BigDecimal'
+        }
       default:
         return 'other';
     }

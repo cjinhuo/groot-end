@@ -1,0 +1,3482 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "结算屏接口文档",
+    "version": "1.0.0",
+    "title": "结算屏接口文档",
+    "termsOfService": "http://www.startdt.com/"
+  },
+  "host": "test-settlement-screen.startdtapi.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "callback-controller",
+      "description": "Callback Controller"
+    },
+    {
+      "name": "config-controller",
+      "description": "Config Controller"
+    },
+    {
+      "name": "member-controller",
+      "description": "Member Controller"
+    },
+    {
+      "name": "oss sts接口",
+      "description": "Sts Controller"
+    },
+    {
+      "name": "tcbj-controller",
+      "description": "Tcbj Controller"
+    },
+    {
+      "name": "util-controller",
+      "description": "Util Controller"
+    },
+    {
+      "name": "中烟接口",
+      "description": "Zhong Yan Controller"
+    },
+    {
+      "name": "刷脸，会员查询",
+      "description": "Face Info Controller"
+    },
+    {
+      "name": "商品接口",
+      "description": "Product Controller"
+    },
+    {
+      "name": "小程序，h5接口",
+      "description": "H 5 Controller"
+    },
+    {
+      "name": "开放平台",
+      "description": "Api Controller"
+    },
+    {
+      "name": "订单接口",
+      "description": "Order Controller"
+    }
+  ],
+  "paths": {
+    "/config": {
+      "get": {
+        "tags": [
+          "config-controller"
+        ],
+        "summary": "获取配置信息",
+        "operationId": "getConfigUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«ConfigVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/face_info/v1/queryMember": {
+      "post": {
+        "tags": [
+          "刷脸，会员查询"
+        ],
+        "summary": "轮询用户信息",
+        "operationId": "queryUserUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "uuidReq",
+            "description": "uuidReq",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«ScanFaceResp»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/face_info/v1/scanFace": {
+      "post": {
+        "tags": [
+          "刷脸，会员查询"
+        ],
+        "summary": "扫脸，获取当前账号信息",
+        "operationId": "scanFaceUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "X-Forwarded-For",
+            "in": "header",
+            "description": "X-Forwarded-For",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "scanFaceReq",
+            "description": "scanFaceReq",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ScanFaceReq"
+            }
+          },
+          {
+            "name": "versionCode",
+            "in": "header",
+            "description": "versionCode",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«ScanFaceResp»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/face_info/v2/verifyCellphone": {
+      "post": {
+        "tags": [
+          "刷脸，会员查询"
+        ],
+        "summary": "校验手机号码v2",
+        "operationId": "verifyPhoneV2UsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "verifyPhoneReq",
+            "description": "verifyPhoneReq",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VerifyPhoneReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/h5/v1/scan": {
+      "post": {
+        "tags": [
+          "小程序，h5接口"
+        ],
+        "summary": "scan",
+        "operationId": "scanUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "h5ScanReq",
+            "description": "h5ScanReq",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/H5ScanReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/open/v1/cart/sync": {
+      "post": {
+        "tags": [
+          "开放平台"
+        ],
+        "summary": "cartSync",
+        "operationId": "cartSyncUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "dataJson",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "merchantId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«ApiSignResp»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/open/v1/flow": {
+      "post": {
+        "tags": [
+          "开放平台"
+        ],
+        "summary": "getFlow",
+        "operationId": "getFlowUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "dataJson",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "merchantId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«ApiSignResp»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/open/v1/test": {
+      "post": {
+        "tags": [
+          "开放平台"
+        ],
+        "summary": "test",
+        "operationId": "testUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "dataJson",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "merchantId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«ApiSignResp»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/open/v1/user/register": {
+      "post": {
+        "tags": [
+          "member-controller"
+        ],
+        "summary": "registerMember",
+        "operationId": "registerMemberUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "dataJson",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "merchantId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "requestId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order/v1/cancel/{orderId}": {
+      "get": {
+        "tags": [
+          "订单接口"
+        ],
+        "summary": "取消订单",
+        "operationId": "cancelOrderUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«boolean»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order/v1/placeOrder": {
+      "post": {
+        "tags": [
+          "订单接口"
+        ],
+        "summary": "下单接口v1",
+        "operationId": "placeOrderUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "placeOrderReq",
+            "description": "placeOrderReq",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PlaceOrderReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«OrderInfoVO»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/order/v1/placeOrderAnonymous": {
+      "post": {
+        "tags": [
+          "订单接口"
+        ],
+        "summary": "匿名下单",
+        "operationId": "placeOrderAnonymousUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/匿名下单请求"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«OrderInfoAnonymousVO»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order/v1/prepay_qrcode/{orderId}": {
+      "get": {
+        "tags": [
+          "订单接口"
+        ],
+        "summary": "获取聚合支付二维码",
+        "operationId": "getPrePayQRCodeUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«List«PrePayQrCodeVO»»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/order/v1/queryCurrentUserCoupons": {
+      "post": {
+        "tags": [
+          "订单接口"
+        ],
+        "summary": "获取当前用户优惠券",
+        "operationId": "queryCurrentUserCouponsUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "uuidReq",
+            "description": "uuidReq",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«List«H5CouponInfoVO»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order/v1/status/{orderId}": {
+      "get": {
+        "tags": [
+          "订单接口"
+        ],
+        "summary": "查询订单状态v1",
+        "operationId": "getOrderStatusUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«boolean»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/order/v1/{orderId}": {
+      "get": {
+        "tags": [
+          "订单接口"
+        ],
+        "summary": "查询订单",
+        "operationId": "getOrderUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«OrderDetailVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order/v2/placeOrder": {
+      "post": {
+        "tags": [
+          "订单接口"
+        ],
+        "summary": "下单接口v2",
+        "operationId": "placeOrderV2UsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "takeOrderReq",
+            "description": "takeOrderReq",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/下单请求"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«OrderInfoVO»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order/v2/prepay_qrcode/{orderId}": {
+      "get": {
+        "tags": [
+          "订单接口"
+        ],
+        "summary": "获取聚合支付二维码,支持现金支付",
+        "operationId": "getPrePayCashQRCodeUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«PrePayCashQrcodeVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/order/v2/status/{orderId}": {
+      "get": {
+        "tags": [
+          "订单接口"
+        ],
+        "summary": "查询订单状态v2",
+        "operationId": "getOrderStatusV2UsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«OrderStatusVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/product/v1/barcode/{barCode}": {
+      "get": {
+        "tags": [
+          "商品接口"
+        ],
+        "summary": "获取指定条码商品信息",
+        "operationId": "getProductByBarCodeUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "barCode",
+            "in": "path",
+            "description": "barCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "versionCode",
+            "in": "header",
+            "description": "versionCode",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«Product»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/product/v1/list": {
+      "get": {
+        "tags": [
+          "商品接口"
+        ],
+        "summary": "获得商品结算信息",
+        "description": "获得商品结算信息",
+        "operationId": "findProductListUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "versionCode",
+            "in": "header",
+            "description": "versionCode",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«ShopInfoVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/product/v1/list_in_shop": {
+      "post": {
+        "tags": [
+          "商品接口"
+        ],
+        "summary": "获取店铺内的商品",
+        "operationId": "getProductInShopUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "pageReq",
+            "description": "pageReq",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/分页查询"
+            }
+          },
+          {
+            "name": "versionCode",
+            "in": "header",
+            "description": "versionCode",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/product/v1/rfid": {
+      "post": {
+        "tags": [
+          "商品接口"
+        ],
+        "summary": "获取rfid获取商品信息",
+        "operationId": "getProductByRfidsUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "rfidReq",
+            "description": "rfidReq",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RfidReq"
+            }
+          },
+          {
+            "name": "versionCode",
+            "in": "header",
+            "description": "versionCode",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«List«RfidResVO»»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/sts": {
+      "get": {
+        "tags": [
+          "oss sts接口"
+        ],
+        "summary": "getToken",
+        "operationId": "getTokenUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StsVO"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/tcbj/v1/order/{orderId}": {
+      "get": {
+        "tags": [
+          "tcbj-controller"
+        ],
+        "summary": "查询订单",
+        "operationId": "getOrderUsingGET_1",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orderId",
+            "in": "path",
+            "description": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«TcbjOrderDetailVO»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/tcbj/v1/placeOrderTcbj": {
+      "post": {
+        "tags": [
+          "tcbj-controller"
+        ],
+        "summary": "汤臣倍健手环码下单",
+        "operationId": "placeOrderTcbjUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PlaceOrderTcbjReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«OrderInfoAnonymousVO»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/tcbj/v1/query_ticket": {
+      "post": {
+        "tags": [
+          "tcbj-controller"
+        ],
+        "summary": "查询订单",
+        "operationId": "queryTicketUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "tcbjTicketReq",
+            "description": "tcbjTicketReq",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TcbjTicketReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«TcTicketDTO»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/utils/apiKey": {
+      "post": {
+        "tags": [
+          "util-controller"
+        ],
+        "summary": "addApiKey",
+        "operationId": "addApiKeyUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "apiKeyBO",
+            "description": "apiKeyBO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApiKeyBO"
+            }
+          },
+          {
+            "name": "pwd",
+            "in": "header",
+            "description": "pwd",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "util-controller"
+        ],
+        "summary": "updateApiKey",
+        "operationId": "updateApiKeyUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "apiKeyBO",
+            "description": "apiKeyBO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApiKeyBO"
+            }
+          },
+          {
+            "name": "pwd",
+            "in": "header",
+            "description": "pwd",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/utils/device": {
+      "post": {
+        "tags": [
+          "util-controller"
+        ],
+        "summary": "addDevice",
+        "operationId": "addDeviceUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "deviceBO",
+            "description": "deviceBO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeviceBO"
+            }
+          },
+          {
+            "name": "pwd",
+            "in": "header",
+            "description": "pwd",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "util-controller"
+        ],
+        "summary": "updateDevice",
+        "operationId": "updateDeviceUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "deviceBO",
+            "description": "deviceBO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeviceBO"
+            }
+          },
+          {
+            "name": "pwd",
+            "in": "header",
+            "description": "pwd",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/utils/device/{mac}": {
+      "get": {
+        "tags": [
+          "util-controller"
+        ],
+        "summary": "getDevice",
+        "operationId": "getDeviceUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "path",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pwd",
+            "in": "header",
+            "description": "pwd",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/utils/flow": {
+      "get": {
+        "tags": [
+          "util-controller"
+        ],
+        "summary": "flow",
+        "operationId": "flowUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "merchantId",
+            "in": "query",
+            "description": "merchantId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pwd",
+            "in": "header",
+            "description": "pwd",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "seconds",
+            "in": "query",
+            "description": "seconds",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "shopId",
+            "in": "query",
+            "description": "shopId",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/order/finishOrderCallback": {
+      "post": {
+        "tags": [
+          "callback-controller"
+        ],
+        "summary": "支付完成回调",
+        "description": "支付完成回调",
+        "operationId": "finishOrderCallbackUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderStatus",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "payStatus",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«boolean»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/zhongyan/cigarette_query": {
+      "post": {
+        "tags": [
+          "中烟接口"
+        ],
+        "summary": "查询指定用户在指定品吸机上取烟记录",
+        "operationId": "cigaretteQueryUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ZhongYanCigaretteQueryReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/zhongyan/get_cigarette": {
+      "post": {
+        "tags": [
+          "中烟接口"
+        ],
+        "summary": "查询指定用户在指定品吸机上取烟记录",
+        "operationId": "getCigaretteUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ZhongYanCigaretteGetReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/zhongyan/get_order": {
+      "post": {
+        "tags": [
+          "中烟接口"
+        ],
+        "summary": "获取订单信息",
+        "operationId": "getOrderUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«OrderDetailVO»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/zhongyan/new_order": {
+      "get": {
+        "tags": [
+          "中烟接口"
+        ],
+        "summary": "查询是否有新订单，如果有，data返回true,结算台发声",
+        "operationId": "queryNewOrderUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«boolean»"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/zhongyan/pay": {
+      "post": {
+        "tags": [
+          "中烟接口"
+        ],
+        "summary": "调用支付",
+        "operationId": "payUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "mac",
+            "in": "header",
+            "description": "mac",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "req",
+            "description": "req",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UUIDReq"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Result«ZhongYanPayResp»"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "ApiKeyBO": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "extendInfo": {
+          "type": "string"
+        },
+        "gmtCreate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "gmtModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "isDeleted": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "md5Key": {
+          "type": "string"
+        },
+        "merchantId": {
+          "type": "string"
+        },
+        "state": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "ApiKeyBO"
+    },
+    "ApiSignResp": {
+      "type": "object",
+      "properties": {
+        "dataJson": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        },
+        "sign": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ApiSignResp"
+    },
+    "ConfigVO": {
+      "type": "object",
+      "properties": {
+        "deviceName": {
+          "type": "string",
+          "description": "设备名称"
+        },
+        "deviceType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "设备类型:\n扫条码下单 0 仅扫脸,1 仅扫码，2扫脸+扫码 \n线上下单 10 仅扫脸,11 仅扫码，12扫脸+扫码",
+          "minimum": -128,
+          "maximum": 127
+        },
+        "onlyVipOut": {
+          "type": "integer",
+          "format": "int32",
+          "description": "出店是否强制会员"
+        }
+      },
+      "title": "ConfigVO"
+    },
+    "DeviceBO": {
+      "type": "object",
+      "properties": {
+        "centerUserId": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deviceDesc": {
+          "type": "string"
+        },
+        "deviceType": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": -128,
+          "maximum": 127
+        },
+        "extendInfo": {
+          "type": "string"
+        },
+        "gmtCreate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "gmtModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "isDeleted": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "mac": {
+          "type": "string"
+        },
+        "merchantId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "posId": {
+          "type": "string"
+        },
+        "state": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "storeId": {
+          "type": "string"
+        },
+        "thirdStoreId": {
+          "type": "string"
+        }
+      },
+      "title": "DeviceBO"
+    },
+    "GoodsItem": {
+      "type": "object",
+      "properties": {
+        "barCode": {
+          "type": "string",
+          "description": "商品id"
+        },
+        "goodsNum": {
+          "type": "integer",
+          "format": "int32",
+          "description": "商品数量"
+        }
+      },
+      "title": "GoodsItem"
+    },
+    "H5CouponInfoVO": {
+      "type": "object",
+      "properties": {
+        "couponEndTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "couponInstruction": {
+          "type": "string"
+        },
+        "couponMoneyAmount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "couponMoneyLimit": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "couponName": {
+          "type": "string"
+        },
+        "couponStartTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "couponStatus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "couponTimeStatus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "couponType": {
+          "type": "integer",
+          "format": "int32",
+          "description": "1立减券 2满减 3兑换券见CouponTypeEnum"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "prizeUrl": {
+          "type": "string"
+        },
+        "usedStatus": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "verificationCode": {
+          "type": "string"
+        }
+      },
+      "title": "H5CouponInfoVO"
+    },
+    "H5ScanReq": {
+      "type": "object",
+      "properties": {
+        "accountUserId": {
+          "type": "string"
+        },
+        "appId": {
+          "type": "string"
+        },
+        "appType": {
+          "type": "string"
+        },
+        "appUserId": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "title": "H5ScanReq"
+    },
+    "OrderDetailVO": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "createdOn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "goodsList": {
+          "type": "array",
+          "description": "商品列表",
+          "items": {
+            "$ref": "#/definitions/订单商品"
+          }
+        },
+        "orderStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "订单状态"
+        },
+        "orderStatusName": {
+          "type": "string",
+          "description": "订单状态名称"
+        },
+        "payLogOrderCode": {
+          "type": "string",
+          "description": "支付流水号"
+        },
+        "payStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "支付状态"
+        },
+        "paySuccessTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "支付成功时间"
+        },
+        "payWay": {
+          "type": "string",
+          "description": "支付方式"
+        },
+        "shopName": {
+          "type": "string",
+          "description": "店铺名"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "订单是否有效（0：无效 1：有效）"
+        },
+        "totalDiscount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "优惠价格"
+        },
+        "totalGoodsNum": {
+          "type": "integer",
+          "format": "int32",
+          "description": "商品总数量"
+        },
+        "totalPay": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总价格"
+        },
+        "totalRealPay": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实际支付价格"
+        }
+      },
+      "title": "OrderDetailVO"
+    },
+    "OrderInfoAnonymousVO": {
+      "type": "object",
+      "properties": {
+        "cashPayQrcode": {
+          "type": "string",
+          "description": "现金支付二维码"
+        },
+        "code": {
+          "type": "string",
+          "description": "订单编码"
+        },
+        "goodsCount": {
+          "type": "integer",
+          "format": "int32",
+          "description": "商品数量"
+        },
+        "prePayQRCode": {
+          "type": "array",
+          "description": "支付二维码",
+          "items": {
+            "$ref": "#/definitions/PrePayQrCodeVO"
+          }
+        },
+        "totalRealPay": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实际支付价格"
+        }
+      },
+      "title": "OrderInfoAnonymousVO"
+    },
+    "OrderInfoVO": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "订单编码"
+        },
+        "orderStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "订单状态"
+        },
+        "payLogOrderCode": {
+          "type": "string",
+          "description": "支付流水号"
+        },
+        "payStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "支付状态"
+        },
+        "payStatusMsg": {
+          "type": "string",
+          "description": "失败原因"
+        },
+        "paySuccessTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "支付成功时间"
+        },
+        "shopName": {
+          "type": "string",
+          "description": "店铺名"
+        },
+        "totalRealPay": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实际支付价格"
+        }
+      },
+      "title": "OrderInfoVO"
+    },
+    "OrderStatusVO": {
+      "type": "object",
+      "properties": {
+        "orderStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "订单状态  103 订单支付成功 106 订单已完成 105 订单已关闭"
+        },
+        "payResult": {
+          "type": "string",
+          "description": "支付结果文案"
+        },
+        "payStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "支付状态:0 支付成功 1支付中 2 支付失败"
+        }
+      },
+      "title": "OrderStatusVO"
+    },
+    "PlaceOrderReq": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "verificationCode": {
+          "type": "string",
+          "description": "优惠券核销码"
+        }
+      },
+      "title": "PlaceOrderReq"
+    },
+    "PlaceOrderTcbjReq": {
+      "type": "object",
+      "properties": {
+        "qrcode": {
+          "type": "string",
+          "description": "手环二维码"
+        },
+        "rfidList": {
+          "type": "array",
+          "description": "rfid商品列表",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "PlaceOrderTcbjReq"
+    },
+    "PrePayCashQrcodeVO": {
+      "type": "object",
+      "properties": {
+        "cashPayQrcode": {
+          "type": "string",
+          "description": "现金支付二维码"
+        },
+        "prePayQrcodeList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrePayQrCodeVO"
+          }
+        }
+      },
+      "title": "PrePayCashQrcodeVO"
+    },
+    "PrePayQrCodeVO": {
+      "type": "object",
+      "properties": {
+        "codeImgUrl": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sort": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "PrePayQrCodeVO"
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "barCode": {
+          "type": "string"
+        },
+        "brandCode": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "itemCode": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "rfid": {
+          "type": "string"
+        },
+        "skuCode": {
+          "type": "string"
+        },
+        "specification": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "title": "Product"
+    },
+    "Result": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "type": "object"
+        }
+      },
+      "title": "Result"
+    },
+    "Result«ApiSignResp»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/ApiSignResp"
+        }
+      },
+      "title": "Result«ApiSignResp»"
+    },
+    "Result«ConfigVO»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/ConfigVO"
+        }
+      },
+      "title": "Result«ConfigVO»"
+    },
+    "Result«List«H5CouponInfoVO»»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/H5CouponInfoVO"
+          }
+        }
+      },
+      "title": "Result«List«H5CouponInfoVO»»"
+    },
+    "Result«List«PrePayQrCodeVO»»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrePayQrCodeVO"
+          }
+        }
+      },
+      "title": "Result«List«PrePayQrCodeVO»»"
+    },
+    "Result«List«RfidResVO»»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RfidResVO"
+          }
+        }
+      },
+      "title": "Result«List«RfidResVO»»"
+    },
+    "Result«OrderDetailVO»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/OrderDetailVO"
+        }
+      },
+      "title": "Result«OrderDetailVO»"
+    },
+    "Result«OrderInfoAnonymousVO»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/OrderInfoAnonymousVO"
+        }
+      },
+      "title": "Result«OrderInfoAnonymousVO»"
+    },
+    "Result«OrderInfoVO»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/OrderInfoVO"
+        }
+      },
+      "title": "Result«OrderInfoVO»"
+    },
+    "Result«OrderStatusVO»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/OrderStatusVO"
+        }
+      },
+      "title": "Result«OrderStatusVO»"
+    },
+    "Result«PrePayCashQrcodeVO»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/PrePayCashQrcodeVO"
+        }
+      },
+      "title": "Result«PrePayCashQrcodeVO»"
+    },
+    "Result«Product»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/Product"
+        }
+      },
+      "title": "Result«Product»"
+    },
+    "Result«ScanFaceResp»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/ScanFaceResp"
+        }
+      },
+      "title": "Result«ScanFaceResp»"
+    },
+    "Result«ShopInfoVO»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/ShopInfoVO"
+        }
+      },
+      "title": "Result«ShopInfoVO»"
+    },
+    "Result«TcTicketDTO»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/TcTicketDTO"
+        }
+      },
+      "title": "Result«TcTicketDTO»"
+    },
+    "Result«TcbjOrderDetailVO»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/TcbjOrderDetailVO"
+        }
+      },
+      "title": "Result«TcbjOrderDetailVO»"
+    },
+    "Result«ZhongYanPayResp»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "$ref": "#/definitions/ZhongYanPayResp"
+        }
+      },
+      "title": "Result«ZhongYanPayResp»"
+    },
+    "Result«boolean»": {
+      "type": "object",
+      "properties": {
+        "codeDesc": {
+          "type": "string"
+        },
+        "codeNum": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "success": {
+          "type": "boolean"
+        },
+        "value": {
+          "type": "boolean"
+        }
+      },
+      "title": "Result«boolean»"
+    },
+    "RfidReq": {
+      "type": "object",
+      "properties": {
+        "rfidList": {
+          "type": "array",
+          "description": "rfid列表",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "RfidReq"
+    },
+    "RfidResVO": {
+      "type": "object",
+      "properties": {
+        "barCode": {
+          "type": "string",
+          "description": "条形码"
+        },
+        "imgUrl": {
+          "type": "string"
+        },
+        "itemCode": {
+          "type": "string"
+        },
+        "itemName": {
+          "type": "string",
+          "description": "商品名"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "rfidList": {
+          "type": "array",
+          "description": "rfid列表",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skuCode": {
+          "type": "string"
+        },
+        "specification": {
+          "type": "string"
+        },
+        "templateId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "RfidResVO"
+    },
+    "ScanFaceReq": {
+      "type": "object",
+      "properties": {
+        "base64Img": {
+          "type": "string"
+        }
+      },
+      "title": "ScanFaceReq"
+    },
+    "ScanFaceResp": {
+      "type": "object",
+      "properties": {
+        "avatarUrl": {
+          "type": "string"
+        },
+        "codeVerified": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "faceId": {
+          "type": "string"
+        },
+        "inBlackList": {
+          "type": "integer",
+          "format": "int32",
+          "description": "黑名单 0普通用户 1黑名单"
+        },
+        "isAppScan": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "isDismiss": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "isMember": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "needCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "nickName": {
+          "type": "string"
+        },
+        "qrCode": {
+          "type": "string"
+        },
+        "qrCodeType": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "timeDesc": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "title": "ScanFaceResp"
+    },
+    "ShopInfoVO": {
+      "type": "object",
+      "properties": {
+        "productArray": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        },
+        "totalNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalPrice": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ShopInfoVO"
+    },
+    "StsVO": {
+      "type": "object",
+      "properties": {
+        "AccessKeyId": {
+          "type": "string"
+        },
+        "AccessKeySecret": {
+          "type": "string"
+        },
+        "ErrorCode": {
+          "type": "string"
+        },
+        "ErrorMessage": {
+          "type": "string"
+        },
+        "Expiration": {
+          "type": "string"
+        },
+        "SecurityToken": {
+          "type": "string"
+        },
+        "StatusCode": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "StsVO"
+    },
+    "TcTicketDTO": {
+      "type": "object",
+      "properties": {
+        "activate": {
+          "type": "boolean"
+        },
+        "bespeakdate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "payStatys": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "price": {
+          "type": "number"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "telphone": {
+          "type": "string"
+        },
+        "ticketTypeName": {
+          "type": "string"
+        },
+        "ticketno": {
+          "type": "string"
+        }
+      },
+      "title": "TcTicketDTO"
+    },
+    "TcbjOrderDetailVO": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "createdOn": {
+          "type": "integer",
+          "format": "int64",
+          "description": "创建时间"
+        },
+        "goodsList": {
+          "type": "array",
+          "description": "商品列表",
+          "items": {
+            "$ref": "#/definitions/订单商品"
+          }
+        },
+        "invoiceQrcode": {
+          "type": "string",
+          "description": "电子发票二维码"
+        },
+        "orderStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "订单状态"
+        },
+        "orderStatusName": {
+          "type": "string",
+          "description": "订单状态名称"
+        },
+        "payLogOrderCode": {
+          "type": "string",
+          "description": "支付流水号"
+        },
+        "payStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "支付状态"
+        },
+        "paySuccessTime": {
+          "type": "integer",
+          "format": "int64",
+          "description": "支付成功时间"
+        },
+        "payWay": {
+          "type": "string",
+          "description": "支付方式"
+        },
+        "shopName": {
+          "type": "string",
+          "description": "店铺名"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "订单是否有效（0：无效 1：有效）"
+        },
+        "totalDiscount": {
+          "type": "integer",
+          "format": "int64",
+          "description": "优惠价格"
+        },
+        "totalGoodsNum": {
+          "type": "integer",
+          "format": "int32",
+          "description": "商品总数量"
+        },
+        "totalPay": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总价格"
+        },
+        "totalRealPay": {
+          "type": "integer",
+          "format": "int64",
+          "description": "实际支付价格"
+        }
+      },
+      "title": "TcbjOrderDetailVO"
+    },
+    "TcbjTicketReq": {
+      "type": "object",
+      "properties": {
+        "qrcode": {
+          "type": "string",
+          "description": "手环二维码"
+        }
+      },
+      "title": "TcbjTicketReq"
+    },
+    "UUIDReq": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "title": "UUIDReq"
+    },
+    "VerifyPhoneReq": {
+      "type": "object",
+      "properties": {
+        "cellphone": {
+          "type": "string"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "title": "VerifyPhoneReq"
+    },
+    "ZhongYanCigaretteGetReq": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "title": "ZhongYanCigaretteGetReq"
+    },
+    "ZhongYanCigaretteQueryReq": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        }
+      },
+      "title": "ZhongYanCigaretteQueryReq"
+    },
+    "ZhongYanPayResp": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string"
+        },
+        "payResult": {
+          "type": "string",
+          "description": "失败原因"
+        },
+        "payStatus": {
+          "type": "integer",
+          "format": "int32",
+          "description": "支付状态"
+        }
+      },
+      "title": "ZhongYanPayResp"
+    },
+    "下单请求": {
+      "type": "object",
+      "properties": {
+        "goodsItemList": {
+          "type": "array",
+          "description": "商品列表",
+          "items": {
+            "$ref": "#/definitions/GoodsItem"
+          }
+        },
+        "rfidList": {
+          "type": "array",
+          "description": "rfid商品列表",
+          "items": {
+            "type": "string"
+          }
+        },
+        "uuid": {
+          "type": "string"
+        },
+        "verificationCode": {
+          "type": "string",
+          "description": "优惠券核销码"
+        }
+      },
+      "title": "下单请求"
+    },
+    "分页查询": {
+      "type": "object",
+      "properties": {
+        "currentPage": {
+          "type": "integer",
+          "format": "int32",
+          "description": "第几页"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "description": "一页多少条"
+        }
+      },
+      "title": "分页查询"
+    },
+    "匿名下单请求": {
+      "type": "object",
+      "properties": {
+        "goodsItemList": {
+          "type": "array",
+          "description": "商品列表",
+          "items": {
+            "$ref": "#/definitions/GoodsItem"
+          }
+        }
+      },
+      "title": "匿名下单请求"
+    },
+    "订单商品": {
+      "type": "object",
+      "properties": {
+        "bannerCode": {
+          "type": "string",
+          "description": "商品条形码"
+        },
+        "code": {
+          "type": "string",
+          "description": "订单子项编码"
+        },
+        "couponCode": {
+          "type": "string",
+          "description": "该条订单子项的优惠券ID"
+        },
+        "discountMoney": {
+          "type": "integer",
+          "format": "int64",
+          "description": "该子项订单优惠金额"
+        },
+        "goodsId": {
+          "type": "string",
+          "description": "商品ID"
+        },
+        "goodsItemId": {
+          "type": "string",
+          "description": "商品ITEMID"
+        },
+        "goodsName": {
+          "type": "string",
+          "description": "商品名称"
+        },
+        "goodsNum": {
+          "type": "integer",
+          "format": "int32",
+          "description": "商品数量"
+        },
+        "goodsUrl": {
+          "type": "string",
+          "description": "商品图片URL"
+        },
+        "orderCode": {
+          "type": "string",
+          "description": "订单编码"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "商品价格"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "订单子项该条记录是否有效（0：无效 1：有效）"
+        },
+        "totalMoney": {
+          "type": "integer",
+          "format": "int64",
+          "description": "该订单子项的总价"
+        },
+        "totalRealMoney": {
+          "type": "integer",
+          "format": "int64",
+          "description": "总实际支付"
+        }
+      },
+      "title": "订单商品"
+    }
+  }
+}

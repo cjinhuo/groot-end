@@ -374,7 +374,7 @@ export class ParseService implements ParseInterface {
       const temp = {
         fieldName: value.name,
         fieldComment: value.description || '',
-        fieldType: this.utils.transformFieldTypeForAndroid(value.type)
+        fieldType: this.utils.transformFieldTypeForAndroid(value)
       }
       arr.push(temp)
     })
