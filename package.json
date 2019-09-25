@@ -28,12 +28,14 @@
     "@nestjs/core": "^6.0.4",
     "@nestjs/microservices": "^6.0.4",
     "@nestjs/platform-express": "^6.0.4",
+    "@nestjs/swagger": "^3.1.0",
     "@nestjs/websockets": "^6.0.4",
     "connect-history-api-fallback": "^1.6.0",
     "reflect-metadata": "0.1.13",
     "rimraf": "2.6.3",
     "rxjs": "6.4.0",
     "siwa": "^1.0.2",
+    "swagger-ui-express": "^4.1.1",
     "ts-loader": "^6.0.4"
   },
   "devDependencies": {
