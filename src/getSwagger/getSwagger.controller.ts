@@ -11,4 +11,9 @@ export class GetSwaggerController {
     const res = await this.getSwaggerService.getSwaggerWithUrl(url.url);
     return res;
   }
+  @Get('nest')
+  async getNestSwaggerJSON(@Query() url: GetSwaggerDto) {
+    const res = await this.getSwaggerService.getSwaggerWithUrl(url.url);
+    return res;
+  }
 }

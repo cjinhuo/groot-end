@@ -3,7 +3,6 @@
 // process.cwd();
 // "node ./groot-front/node_modules/@vue/cli-service/bin/vue-cli-service.js serve"
 const { exec } = require("child_process");
-console.log(exec);
 exec("cd ./groot-front", function(error, stdout, stderr) {
   console.log(`stdout: ${stdout}`);
   console.error(`stderr: ${stderr}`);

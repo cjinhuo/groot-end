@@ -5,4 +5,5 @@ export default interface GetSwaggerInterFace {
    * @memberof GetSwaggerInterFace
    */
   getSwaggerWithUrl: (url: string) => object;
+  getNestSwaggerWithUrl: (url: string) => object;
 }

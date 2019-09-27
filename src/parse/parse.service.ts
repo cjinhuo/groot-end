@@ -23,7 +23,11 @@ export class ParseService implements ParseInterface {
       label: '全选',
       children: [],
     };
-    const res = await this.getSwaggerService.getSwaggerWithUrl(url);
+    let res;
+    res = await this.getSwaggerService.getSwaggerWithUrl(url);
+    if (res.success && !res.data.swagger) {
+      res = await this.getSwaggerService.getNestSwaggerWithUrl(url);
+    }
     if (res.success) {
       const data = siwa.parse(res.data);
       const tags = {};
@@ -195,6 +199,7 @@ export class ParseService implements ParseInterface {
     const replacedStr =  formatter.replace(variableReg, (target) => {
       const arr = target.replace(/\s*/g, '').replace('$', '').split('=');
       const evalStr = `$['${arr[0]}']=${arr[1]}`;
+      // tslint:disable-next-line: no-eval
       eval(evalStr);
       return '';
     });
@@ -304,7 +309,7 @@ export class ParseService implements ParseInterface {
             }
             break;
           case 'formData':
-            formBodyParams.push(parameter.name)
+            formBodyParams.push(parameter.name);
           default:
             break;
         }
@@ -326,58 +331,58 @@ export class ParseService implements ParseInterface {
     };
   }
   createSingleAndroidInfo(item: ItemChildrenStructure): any {
-    let result = new AndroidObject()
+    const result = new AndroidObject();
     result.path = item.path;
     result.comment = item.description;
     result.method = item.method.toUpperCase();
     const params = this.traverseParameters(item);
     if (params.bodyParams.length > 0) {
-      result.hasBody = true
+      result.hasBody = true;
     }
-    if (params.headerParams.length > 0){
+    if (params.headerParams.length > 0) {
       result.hasHeader = true;
     }
-    if (params.queryParams.length > 0){
-      result.hasQueryMap = true
+    if (params.queryParams.length > 0) {
+      result.hasQueryMap = true;
     }
     if (params.formBodyParams.length > 0) {
-      result.hasFormBody = true
+      result.hasFormBody = true;
     }
     const response = this.getResponseData(item);
     if (!response) {
       return result.exposeData();
     }
     if (response.type === 'array') {
-      result.isArray = true
+      result.isArray = true;
       try {
-        result.fieldBeans = this.traverseResponse(response.children[0].children)
-        
+        result.fieldBeans = this.traverseResponse(response.children[0].children);
+
       } catch (error) {
-        console.error('array格式不规范')
+        console.error('array格式不规范');
       }
     } else if (response.type === 'object') {
-      result.fieldBeans = this.traverseResponse(response.children)
+      result.fieldBeans = this.traverseResponse(response.children);
     } else {
       result.fieldBeans = [
         {
           fieldName: '',
           fieldComment: response.description || '',
-          fieldType: response.type
-        }
-      ]
+          fieldType: response.type,
+        },
+      ];
     }
     return result.exposeData();
   }
   traverseResponse(response: any[]): any[] {
-    const arr = []
+    const arr = [];
     response.forEach(value => {
       const temp = {
         fieldName: value.name,
         fieldComment: value.description || '',
-        fieldType: this.utils.transformFieldTypeForAndroid(value)
-      }
-      arr.push(temp)
-    })
+        fieldType: this.utils.transformFieldTypeForAndroid(value),
+      };
+      arr.push(temp);
+    });
     return arr;
   }
   getParameterData(item: ItemChildrenStructure): any {
@@ -387,14 +392,14 @@ export class ParseService implements ParseInterface {
     // console.log(`item.responses['200']`, item.responses['200'])
     const responseParent = item.responses['200'].children;
     let result = Array.isArray(responseParent) ? this.utils.findObjectInArray(responseParent, 'name', 'value') : responseParent;
-    // 可能是这种{ name: '200', description: 'OK', type: 'string' 
-    if (responseParent){
+    // 可能是这种{ name: '200', description: 'OK', type: 'string'
+    if (responseParent) {
       // 可能没有value
       if (result) {
         // console.log('value', result)
         // 可能没有data
         if (result.children && Array.isArray(result.children) && this.utils.findObjectInArray(result.children, 'name', 'data')) {
-          result = this.utils.findObjectInArray(result.children, 'name', 'data')
+          result = this.utils.findObjectInArray(result.children, 'name', 'data');
         }
       } else {
         // 没有value对应的话直接复制

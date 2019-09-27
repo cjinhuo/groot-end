@@ -13,18 +13,16 @@ export class ParseController {
 
   @Get('list')
   async getTableList(@Query() { url }: {url: string} ): Promise<BackFormatterDto> {
-    const resolveUrl = this.utils.resolveSwaggerUrl(url);
-    const res = await this.parseService.createList(resolveUrl);
+    const res = await this.parseService.createList(url);
     return res;
   }
 
   @Post('build')
   async BuildCodeWithParam(@Body() { template, include, url, getFormatter, postFormatter }: BuildCodeDto): Promise<BackFormatterDto> {
-    const resolveUrl = this.utils.resolveSwaggerUrl(url);
     let codes = [];
     // 模板内容
     codes = [...this.parseService.createTemplateCodes(template)];
-    const listRes = await this.parseService.createList(resolveUrl);
+    const listRes = await this.parseService.createList(url);
     if (listRes.success) {
       const originData = listRes.data;
       const selectedData = this.parseService.filterTreeWithIds(originData[0].children, include);
@@ -40,13 +38,12 @@ export class ParseController {
   }
   @Post('android')
   async postSwaggerMapJsonForAndroid(@Body() { url, include }: { url: string, include: string[] }): Promise<BackFormatterDto> {
-    const resolveUrl = this.utils.resolveSwaggerUrl(url);
     const json = {
       code: 0,
       errMsg: '正常返回',
       data: [],
     };
-    const listRes = await this.parseService.createList(resolveUrl);
+    const listRes = await this.parseService.createList(url);
     if (listRes.success) {
       const originData = listRes.data;
       const selectedData = this.parseService.filterTreeWithIds(originData[0].children, include);
@@ -61,9 +58,8 @@ export class ParseController {
   }
   @Get('android')
   async getSwaggerMapJsonForAndroid(@Query() { url }: { url: string }): Promise<BackFormatterDto> {
-    const resolveUrl = this.utils.resolveSwaggerUrl(url);
     const data = [];
-    const listRes = await this.parseService.createList(resolveUrl);
+    const listRes = await this.parseService.createList(url);
     if (listRes.success) {
       const originData = listRes.data;
       // 获取所有单条接口的数据

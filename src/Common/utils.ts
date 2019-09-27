@@ -29,12 +29,25 @@ enum dataTypes {
         return $1.toUpperCase();
       });
     }
+    /**
+     * 返回spring bootswagger的api-doc的地址
+     *
+     * @param {string} url
+     * @returns {string}
+     * @memberof Utils
+     */
     resolveSwaggerUrl(url: string): string {
         url = url.replace(/\/swagger-ui\.html.*$/, '')
           .replace(/\/+$/, '')
           .replace(/\/v2\/api-docs/, '');
         if (!/^https?:\/\//.test(url)) { url = 'http://' + url; }
         return `${url}/v2/api-docs`;
+    }
+    resolveNestSwaggerUrl(url: string): string {
+      // 为鹰眼定制的swagger 地址解析
+      url = url.replace(/swagger-ui[/s]+/, 'swagger-ui');
+      if (!/^https?:\/\//.test(url)) { url = 'http://' + url; }
+      return `${url}/swagger-ui-init.js`;
     }
     /**
      * 返回一个请求这个就接口的方法名
@@ -86,10 +99,10 @@ enum dataTypes {
   transformFieldTypeForAndroid(value: any): string {
     switch (value.type) {
       case 'integer':
-        if (value.format && value.format === 'int32'){
-          return 'int'
+        if (value.format && value.format === 'int32') {
+          return 'int';
         } else {
-          return 'long'
+          return 'long';
         }
       case 'string':
         return 'string';
@@ -97,12 +110,12 @@ enum dataTypes {
         return 'boolean';
       case 'BigDecimal':
       case 'number':
-        if (value.format && value.format === 'int32'){
-          return 'int'
+        if (value.format && value.format === 'int32') {
+          return 'int';
         } else if (value.format && value.format === 'int64') {
-          return 'long'
+          return 'long';
         } else {
-          return 'BigDecimal'
+          return 'BigDecimal';
         }
       default:
         return 'other';
