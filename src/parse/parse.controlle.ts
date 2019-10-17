@@ -25,7 +25,8 @@ export class ParseController {
     if (listRes.success) {
       const originData = listRes.data;
       originData[0].children.forEach(p => {
-        p.children && p.children.forEach(v => {
+        // tslint:disable-next-line: no-unused-expression
+        p.children && p.children.forEach((v: { id: any; description: any; }) => {
           result.push(`${v.id} ${v.description}`);
         });
       });
