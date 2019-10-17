@@ -34,6 +34,7 @@ export class ParseService implements ParseInterface {
       if (data.tags) {
         // 添加第一层children，以tag来遍历
         data.tags.forEach(tag => {
+
           root.children.push(
             (tags[tag.name] = {
               id: `tag ${tag.name}`,

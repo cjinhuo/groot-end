@@ -4,6 +4,7 @@ import { BuildCodeDto } from './dto/parse.dto';
 import { Utils } from '../Common/utils';
 import { BackFormatter } from '../Common/BackFormatter';
 import { BackFormatterDto } from '../Common/common.dto';
+import { listeners } from 'cluster';
 
 @Controller('parse')
 export class ParseController {
@@ -15,6 +16,21 @@ export class ParseController {
   async getTableList(@Query() { url }: {url: string} ): Promise<BackFormatterDto> {
     const res = await this.parseService.createList(url);
     return res;
+  }
+
+  @Get('listUrls')
+  async getListUrls(@Query() { url }: { url: string }): Promise<any> {
+    const listRes = await this.parseService.createList(url);
+    const result = [];
+    if (listRes.success) {
+      const originData = listRes.data;
+      originData[0].children.forEach(p => {
+        p.children && p.children.forEach(v => {
+          result.push(`${v.id} ${v.description}`);
+        });
+      });
+    }
+    return result;
   }
 
   @Post('build')
