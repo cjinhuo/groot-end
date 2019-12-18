@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Post, Body } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body, Header } from '@nestjs/common';
 import { ParseService } from './parse.service';
 import { BuildCodeDto } from './dto/parse.dto';
 import { Utils } from '../Common/utils';
@@ -11,7 +11,7 @@ export class ParseController {
   constructor(private readonly parseService: ParseService,
               private readonly utils: Utils,
               private readonly backFormatter: BackFormatter) {}
-
+  @Header('Cache-Control', 'no-cache')
   @Get('list')
   async getTableList(@Query() { url }: {url: string} ): Promise<BackFormatterDto> {
     const res = await this.parseService.createList(url);
