@@ -27,7 +27,7 @@ async function bootstrap() {
   // 启用CORS
   app.enableCors();
   await app.listen(80);
-  console.log('\x1B[32m' + '%s' + '\x1B[39m', 'http://localhost:80');
+  console.log('\x1B[35m' + '\x1B[49m', 'http://localhost:80');
   // if (module.hot) {
   //   module.hot.accept();
   //   module.hot.dispose(() => app.close());
