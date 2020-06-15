@@ -26,8 +26,8 @@ async function bootstrap() {
   // app.useStaticAssets(join(__dirname, '', '../static'));
   // 启用CORS
   app.enableCors();
-  await app.listen(80);
-  console.log('\x1B[35m' + '\x1B[49m', 'http://localhost:80');
+  await app.listen(8090);
+  console.log('\x1B[35m' + '\x1B[49m', 'http://localhost:8090');
   // if (module.hot) {
   //   module.hot.accept();
   //   module.hot.dispose(() => app.close());
